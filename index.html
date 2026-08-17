@@ -13,56 +13,123 @@
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased flex h-screen overflow-hidden">
 
-  <!-- Sidebar Navigation -->
-  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0">
-    <div>
-      <div class="p-5 border-b border-slate-800 flex items-center gap-3">
-        <i class="fa-solid fa-cubes text-blue-500 text-2xl"></i>
+  <!-- AUTHENTICATION MODAL / LOGIN SCREEN -->
+  <div id="auth-modal" class="fixed inset-0 bg-slate-900/90 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 border border-slate-200">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-3 bg-blue-600 text-white rounded-xl shadow">
+          <i class="fa-solid fa-cubes text-2xl"></i>
+        </div>
         <div>
-          <h1 class="font-bold text-white leading-none">ApexERP</h1>
-          <span class="text-xs text-slate-400">Order-to-Cash & P2P (BDT ৳)</span>
+          <h2 class="text-2xl font-bold text-slate-900 leading-tight">ApexERP</h2>
+          <p class="text-xs text-slate-500">Enterprise Access Gateway</p>
         </div>
       </div>
 
-      <nav class="p-3 space-y-1 text-sm overflow-y-auto max-h-[calc(100vh-140px)]">
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium">
+      <div id="login-error" class="hidden mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-lg font-medium"></div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">User ID / Username</label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute left-3 top-3 text-slate-400 text-sm"></i>
+            <input type="text" id="login-username" value="admin" required class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter username" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3 top-3 text-slate-400 text-sm"></i>
+            <input type="password" id="login-password" value="admin123" required class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter password" />
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm transition shadow-sm">
+          Sign In to System
+        </button>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500">
+        <p class="font-semibold text-slate-600 mb-1">Default Demo Credentials:</p>
+        <p>• Admin: <code class="text-blue-600 font-mono">admin</code> / <code class="text-blue-600 font-mono">admin123</code></p>
+        <p>• Sales: <code class="text-blue-600 font-mono">sales01</code> / <code class="text-blue-600 font-mono">pass123</code></p>
+        <p>• Procurement: <code class="text-blue-600 font-mono">buyer01</code> / <code class="text-blue-600 font-mono">pass123</code></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Navigation -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0">
+    <div>
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-cubes text-blue-500 text-2xl"></i>
+          <div>
+            <h1 class="font-bold text-white leading-none">ApexERP</h1>
+            <span class="text-xs text-slate-400">Order-to-Cash & P2P</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Profile Card -->
+      <div class="p-4 bg-slate-800/60 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs" id="current-user-avatar">AD</div>
+          <div class="overflow-hidden">
+            <div id="current-user-name" class="text-xs font-semibold text-white truncate">Administrator</div>
+            <div id="current-user-role" class="text-[10px] text-blue-400 uppercase tracking-wider font-semibold truncate">Admin</div>
+          </div>
+        </div>
+        <button onclick="handleLogout()" title="Logout" class="text-slate-400 hover:text-rose-400 p-1.5 transition">
+          <i class="fa-solid fa-arrow-right-from-bracket text-sm"></i>
+        </button>
+      </div>
+
+      <nav class="p-3 space-y-1 text-sm overflow-y-auto max-h-[calc(100vh-210px)]">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-600 text-white font-medium">
           <i class="fa-solid fa-chart-line w-4"></i> Dashboard
         </button>
 
-        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Sales / Outbound</div>
-        <button onclick="switchTab('create-so')" id="nav-create-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3" data-section="sales">Sales / Outbound</div>
+        <button onclick="switchTab('create-so')" id="nav-create-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="sales">
           <i class="fa-solid fa-plus-circle w-4"></i> Create Sales Order
         </button>
-        <button onclick="switchTab('edit-so')" id="nav-edit-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('edit-so')" id="nav-edit-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="sales">
           <i class="fa-solid fa-pen-to-square w-4"></i> Change Sales Order
         </button>
-        <button onclick="switchTab('view-so')" id="nav-view-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('view-so')" id="nav-view-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="sales">
           <i class="fa-solid fa-file-invoice w-4"></i> View Sales Order
         </button>
-        <button onclick="switchTab('so-report')" id="nav-so-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('so-report')" id="nav-so-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="sales">
           <i class="fa-solid fa-table-list w-4"></i> Sales Order Report
         </button>
 
-        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Procurement / Inbound</div>
-        <button onclick="switchTab('create-po')" id="nav-create-po" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3" data-section="procurement">Procurement / Inbound</div>
+        <button onclick="switchTab('create-po')" id="nav-create-po" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="procurement">
           <i class="fa-solid fa-cart-plus w-4"></i> Create Purchase Order
         </button>
-        <button onclick="switchTab('grn-receipt')" id="nav-grn-receipt" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('grn-receipt')" id="nav-grn-receipt" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="procurement">
           <i class="fa-solid fa-truck-ramp-box w-4"></i> Goods Receipt (GRN)
         </button>
-        <button onclick="switchTab('po-report')" id="nav-po-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('po-report')" id="nav-po-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="procurement">
           <i class="fa-solid fa-boxes-packing w-4"></i> PO Status Report
         </button>
 
-        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Master Management</div>
-        <button onclick="switchTab('customer-master')" id="nav-customer-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3" data-section="master">Master Management</div>
+        <button onclick="switchTab('customer-master')" id="nav-customer-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="master">
           <i class="fa-solid fa-users w-4"></i> Customer Master
         </button>
-        <button onclick="switchTab('supplier-master')" id="nav-supplier-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('supplier-master')" id="nav-supplier-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="master">
           <i class="fa-solid fa-industry w-4"></i> Supplier Master
         </button>
-        <button onclick="switchTab('material-master')" id="nav-material-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+        <button onclick="switchTab('material-master')" id="nav-material-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="master">
           <i class="fa-solid fa-box-archive w-4"></i> Material Master
+        </button>
+
+        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3" data-section="admin">Administration</div>
+        <button onclick="switchTab('user-management')" id="nav-user-management" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800" data-section="admin">
+          <i class="fa-solid fa-user-shield w-4"></i> User Management
         </button>
       </nav>
     </div>
@@ -330,7 +397,7 @@
         </div>
       </section>
 
-      <!-- SCREEN 5: CUSTOMER MASTER MANAGEMENT -->
+      <!-- SCREEN 5: CUSTOMER MASTER -->
       <section id="customer-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <h3 id="cust-form-title" class="text-base font-bold text-slate-800 mb-4">Add New Customer Master Record</h3>
@@ -378,7 +445,7 @@
         </div>
       </section>
 
-      <!-- SCREEN: SUPPLIER MASTER MANAGEMENT -->
+      <!-- SCREEN: SUPPLIER MASTER -->
       <section id="supplier-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <h3 id="sup-form-title" class="text-base font-bold text-slate-800 mb-4">Add New Supplier Master Record</h3>
@@ -426,7 +493,7 @@
         </div>
       </section>
 
-      <!-- SCREEN 6: MATERIAL MASTER MANAGEMENT -->
+      <!-- SCREEN 6: MATERIAL MASTER -->
       <section id="material-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <h3 id="mat-form-title" class="text-base font-bold text-slate-800 mb-4">Add New Material Master Record</h3>
@@ -483,11 +550,84 @@
           </div>
         </div>
       </section>
+
+      <!-- SCREEN: USER MANAGEMENT -->
+      <section id="user-management" class="screen-content space-y-6">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <h3 id="user-form-title" class="text-base font-bold text-slate-800 mb-4">Register New System User</h3>
+          <form id="form-user" onsubmit="handleSaveUser(event)" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <input type="hidden" id="user-mode" value="create" />
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">User ID / Username</label>
+              <input type="text" id="user-id-input" placeholder="e.g. jdoe" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name</label>
+              <input type="text" id="user-fullname" placeholder="John Doe" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
+              <input type="password" id="user-pass" placeholder="••••••••" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">System Role</label>
+              <select id="user-role" class="w-full border border-slate-300 rounded px-3 py-2 text-sm" required>
+                <option value="Admin">Admin (Full Access)</option>
+                <option value="Sales Executive">Sales Executive</option>
+                <option value="Procurement Officer">Procurement Officer</option>
+                <option value="Inventory Manager">Inventory Manager</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Action</label>
+              <div class="flex gap-2">
+                <button type="submit" id="user-submit-btn" class="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700">Save User</button>
+                <button type="button" onclick="resetUserForm()" id="user-cancel-btn" class="hidden bg-slate-200 text-slate-700 px-3 py-2 rounded text-sm hover:bg-slate-300">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-slate-800 mb-4">System User Directory & Credentials</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                <tr>
+                  <th class="p-3">User ID</th>
+                  <th class="p-3">Full Name</th>
+                  <th class="p-3">Assigned Role</th>
+                  <th class="p-3">Account Status</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="user-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
   <script>
-    // State
+    // State: Users & Auth
+    let users = [
+      { id: 'admin', name: 'System Administrator', pass: 'admin123', role: 'Admin', status: 'Active' },
+      { id: 'sales01', name: 'Karim Ahmed', pass: 'pass123', role: 'Sales Executive', status: 'Active' },
+      { id: 'buyer01', name: 'Nusrat Jahan', pass: 'pass123', role: 'Procurement Officer', status: 'Active' }
+    ];
+
+    let currentUser = null;
+
+    // Role Permissions Definition
+    const rolePermissions = {
+      'Admin': ['dashboard', 'create-so', 'edit-so', 'view-so', 'so-report', 'create-po', 'grn-receipt', 'po-report', 'customer-master', 'supplier-master', 'material-master', 'user-management'],
+      'Sales Executive': ['dashboard', 'create-so', 'edit-so', 'view-so', 'so-report', 'customer-master', 'material-master'],
+      'Procurement Officer': ['dashboard', 'create-po', 'grn-receipt', 'po-report', 'supplier-master', 'material-master'],
+      'Inventory Manager': ['dashboard', 'view-so', 'grn-receipt', 'material-master', 'supplier-master']
+    };
+
+    // State: Master & Transaction Data
     let customers = [
       { code: 'CUST-1001', name: 'Apex Retail Ltd', email: 'orders@apexretail.com', terms: 'Net 30' },
       { code: 'CUST-1002', name: 'Nova Logistics Corp', email: 'procure@novalog.com', terms: 'Net 45' },
@@ -532,6 +672,7 @@
     let nextSoSeq = 10008492;
     let nextPoSeq = 80001002;
 
+    // Toast Utility
     function notify(msg) {
       const toast = document.getElementById('live-toast');
       toast.innerText = msg;
@@ -539,7 +680,69 @@
       setTimeout(() => toast.classList.add('hidden'), 3500);
     }
 
+    // --- Authentication Engine ---
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const pass = document.getElementById('login-password').value;
+      const errorDiv = document.getElementById('login-error');
+
+      const user = users.find(u => u.id === username && u.pass === pass);
+      if (!user) {
+        errorDiv.innerText = 'Invalid User ID or Password. Please try again.';
+        errorDiv.classList.remove('hidden');
+        return;
+      }
+
+      if (user.status === 'Locked') {
+        errorDiv.innerText = 'Account is locked. Please contact System Administrator.';
+        errorDiv.classList.remove('hidden');
+        return;
+      }
+
+      currentUser = user;
+      document.getElementById('auth-modal').classList.add('hidden');
+      errorDiv.classList.add('hidden');
+
+      // Update UI Header / Profile
+      document.getElementById('current-user-name').innerText = user.name;
+      document.getElementById('current-user-role').innerText = user.role;
+      document.getElementById('current-user-avatar').innerText = user.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+
+      applyRolePermissions();
+      switchTab('dashboard');
+      notify(`Welcome back, ${user.name}!`);
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      document.getElementById('login-password').value = '';
+      document.getElementById('auth-modal').classList.remove('hidden');
+    }
+
+    function applyRolePermissions() {
+      if (!currentUser) return;
+      const allowedTabs = rolePermissions[currentUser.role] || [];
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const tabId = btn.id.replace('nav-', '');
+        if (allowedTabs.includes(tabId)) {
+          btn.classList.remove('hidden');
+        } else {
+          btn.classList.add('hidden');
+        }
+      });
+    }
+
+    // --- Navigation ---
     function switchTab(tabId) {
+      if (!currentUser) return;
+      const allowedTabs = rolePermissions[currentUser.role] || [];
+      if (!allowedTabs.includes(tabId)) {
+        alert('Access Denied: Your account role does not have authorization for this module.');
+        return;
+      }
+
       document.querySelectorAll('.screen-content').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => {
         b.classList.remove('bg-blue-600', 'text-white', 'font-medium');
@@ -558,9 +761,75 @@
       refreshViews();
     }
 
-    // --- Master Data CRUD ---
+    // --- User Management CRUD ---
+    function handleSaveUser(e) {
+      e.preventDefault();
+      const mode = document.getElementById('user-mode').value;
+      const id = document.getElementById('user-id-input').value.trim().toLowerCase();
+      const name = document.getElementById('user-fullname').value.trim();
+      const pass = document.getElementById('user-pass').value;
+      const role = document.getElementById('user-role').value;
 
-    // Customer
+      if (mode === 'create') {
+        if (users.some(u => u.id === id)) {
+          alert(`User ID "${id}" already exists!`);
+          return;
+        }
+        users.push({ id, name, pass, role, status: 'Active' });
+        notify(`User ${id} registered successfully.`);
+      } else {
+        const idx = users.findIndex(u => u.id === id);
+        if (idx !== -1) {
+          users[idx].name = name;
+          if (pass) users[idx].pass = pass;
+          users[idx].role = role;
+          notify(`User ${id} updated.`);
+        }
+      }
+      resetUserForm();
+      refreshViews();
+    }
+
+    function editUser(id) {
+      const u = users.find(user => user.id === id);
+      if (!u) return;
+      document.getElementById('user-mode').value = 'edit';
+      document.getElementById('user-id-input').value = u.id;
+      document.getElementById('user-id-input').readOnly = true;
+      document.getElementById('user-id-input').classList.add('bg-slate-100');
+      document.getElementById('user-fullname').value = u.name;
+      document.getElementById('user-pass').value = u.pass;
+      document.getElementById('user-role').value = u.role;
+
+      document.getElementById('user-form-title').innerText = `Edit User Credentials (${u.id})`;
+      document.getElementById('user-submit-btn').innerText = 'Update User';
+      document.getElementById('user-cancel-btn').classList.remove('hidden');
+    }
+
+    function toggleUserStatus(id) {
+      if (id === currentUser.id) {
+        alert("You cannot lock your own logged-in account!");
+        return;
+      }
+      const u = users.find(user => user.id === id);
+      if (u) {
+        u.status = u.status === 'Active' ? 'Locked' : 'Active';
+        notify(`User ${id} status set to ${u.status}.`);
+        refreshViews();
+      }
+    }
+
+    function resetUserForm() {
+      document.getElementById('form-user').reset();
+      document.getElementById('user-mode').value = 'create';
+      document.getElementById('user-id-input').readOnly = false;
+      document.getElementById('user-id-input').classList.remove('bg-slate-100');
+      document.getElementById('user-form-title').innerText = 'Register New System User';
+      document.getElementById('user-submit-btn').innerText = 'Save User';
+      document.getElementById('user-cancel-btn').classList.add('hidden');
+    }
+
+    // --- Master Data CRUD ---
     function handleSaveCustomer(e) {
       e.preventDefault();
       const mode = document.getElementById('cust-mode').value;
@@ -580,7 +849,7 @@
         const idx = customers.findIndex(c => c.code === code);
         if (idx !== -1) {
           customers[idx] = { code, name, email, terms };
-          notify(`Customer ${code} updated successfully.`);
+          notify(`Customer ${code} updated.`);
         }
       }
       resetCustomerForm();
@@ -613,7 +882,6 @@
       document.getElementById('cust-cancel-btn').classList.add('hidden');
     }
 
-    // Supplier
     function handleSaveSupplier(e) {
       e.preventDefault();
       const mode = document.getElementById('sup-mode').value;
@@ -633,7 +901,7 @@
         const idx = suppliers.findIndex(s => s.code === code);
         if (idx !== -1) {
           suppliers[idx] = { code, name, email, lead };
-          notify(`Supplier ${code} updated successfully.`);
+          notify(`Supplier ${code} updated.`);
         }
       }
       resetSupplierForm();
@@ -666,7 +934,6 @@
       document.getElementById('sup-cancel-btn').classList.add('hidden');
     }
 
-    // Material
     function handleSaveMaterial(e) {
       e.preventDefault();
       const mode = document.getElementById('mat-mode').value;
@@ -683,12 +950,12 @@
           return;
         }
         materials.push({ code, desc, price, cost, stock, reorder });
-        notify(`Material ${code} created successfully.`);
+        notify(`Material ${code} created.`);
       } else {
         const idx = materials.findIndex(m => m.code === code);
         if (idx !== -1) {
           materials[idx] = { code, desc, price, cost, stock, reorder };
-          notify(`Material ${code} updated successfully.`);
+          notify(`Material ${code} updated.`);
         }
       }
       resetMaterialForm();
@@ -724,7 +991,6 @@
     }
 
     // --- Order Operations ---
-
     function initCreateSO() {
       document.getElementById('so-number').value = nextSoSeq;
       document.getElementById('so-date').value = new Date().toISOString().split('T')[0];
@@ -823,11 +1089,10 @@
 
       salesOrders.push({ id, date, custCode, status, items, total: grand });
       nextSoSeq++;
-      notify(`Sales Order ${id} created successfully! (BDT ৳${grand.toLocaleString()})`);
+      notify(`Sales Order ${id} created (৳${grand.toLocaleString()})`);
       switchTab('so-report');
     }
 
-    // Change Sales Order
     function loadSOForEdit() {
       const soNum = document.getElementById('edit-lookup-id').value.trim();
       const so = salesOrders.find(s => s.id === soNum);
@@ -935,7 +1200,6 @@
       switchTab('so-report');
     }
 
-    // View SO
     function loadSOForView() {
       const soNum = document.getElementById('view-lookup-id').value.trim();
       const so = salesOrders.find(s => s.id === soNum);
@@ -975,7 +1239,6 @@
       card.classList.remove('hidden');
     }
 
-    // Purchase & GRN
     function initCreatePO() {
       document.getElementById('po-number').value = nextPoSeq;
       const sel = document.getElementById('po-supplier-code');
@@ -1088,7 +1351,7 @@
       switchTab('material-master');
     }
 
-    // Refresh Dynamic Views & Tables
+    // Refresh Master Tables & Views
     function refreshViews() {
       const totalSales = salesOrders.reduce((sum, o) => o.status === 'Confirmed' ? sum + o.total : sum, 0);
       const totalSpend = purchaseOrders.reduce((sum, p) => p.status === 'Completed' ? sum + p.total : sum, 0);
@@ -1111,7 +1374,25 @@
         </tr>
       `).join('');
 
-      // Customers Master Table
+      // Users Table
+      document.getElementById('user-table-body').innerHTML = users.map(u => `
+        <tr class="border-b">
+          <td class="p-3 font-mono font-bold">${u.id}</td>
+          <td class="p-3">${u.name}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 border border-slate-300">${u.role}</span></td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-semibold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${u.status}</span></td>
+          <td class="p-3 text-right space-x-1">
+            <button onclick="editUser('${u.id}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded border border-slate-300">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button onclick="toggleUserStatus('${u.id}')" title="${u.status === 'Active' ? 'Lock Account' : 'Unlock Account'}" class="text-xs ${u.status === 'Active' ? 'bg-rose-50 text-rose-600 hover:bg-rose-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'} px-2 py-1 rounded border">
+              <i class="fa-solid ${u.status === 'Active' ? 'fa-lock' : 'fa-lock-open'}"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Customer Master Table
       document.getElementById('customer-table-body').innerHTML = customers.map(c => `
         <tr class="border-b">
           <td class="p-3 font-mono font-bold">${c.code}</td>
@@ -1119,14 +1400,12 @@
           <td class="p-3">${c.email}</td>
           <td class="p-3">${c.terms}</td>
           <td class="p-3 text-right">
-            <button onclick="editCustomer('${c.code}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium">
-              <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
-            </button>
+            <button onclick="editCustomer('${c.code}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium">Edit</button>
           </td>
         </tr>
       `).join('');
 
-      // Suppliers Master Table
+      // Supplier Master Table
       document.getElementById('supplier-table-body').innerHTML = suppliers.map(s => `
         <tr class="border-b">
           <td class="p-3 font-mono font-bold">${s.code}</td>
@@ -1134,14 +1413,12 @@
           <td class="p-3">${s.email}</td>
           <td class="p-3">${s.lead}</td>
           <td class="p-3 text-right">
-            <button onclick="editSupplier('${s.code}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium">
-              <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
-            </button>
+            <button onclick="editSupplier('${s.code}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium">Edit</button>
           </td>
         </tr>
       `).join('');
 
-      // Materials Master Table
+      // Material Master Table
       document.getElementById('material-table-body').innerHTML = materials.map(m => `
         <tr class="border-b">
           <td class="p-3 font-mono font-bold">${m.code}</td>
@@ -1151,14 +1428,12 @@
           <td class="p-3 font-bold ${m.stock <= m.reorder ? 'text-red-600' : 'text-slate-800'}">${m.stock}</td>
           <td class="p-3 text-slate-500">${m.reorder}</td>
           <td class="p-3 text-right">
-            <button onclick="editMaterial('${m.code}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium">
-              <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
-            </button>
+            <button onclick="editMaterial('${m.code}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium">Edit</button>
           </td>
         </tr>
       `).join('');
 
-      // Sales Order Report Table
+      // Reports
       document.getElementById('so-report-table-body').innerHTML = salesOrders.map(so => `
         <tr class="border-b">
           <td class="p-3 font-mono font-bold">${so.id}</td>
@@ -1173,7 +1448,6 @@
         </tr>
       `).join('');
 
-      // PO Report Table
       document.getElementById('po-report-table-body').innerHTML = purchaseOrders.map(po => `
         <tr class="border-b">
           <td class="p-3 font-mono font-bold">${po.id}</td>
@@ -1183,9 +1457,6 @@
         </tr>
       `).join('');
     }
-
-    // Initial load
-    refreshViews();
   </script>
 </body>
 </html>
