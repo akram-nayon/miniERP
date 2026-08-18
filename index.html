@@ -3,26 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UnityCore Trading and Supplies - Enterprise ERP &amp; Financials (BDT)</title>
+  <title>UnityCore Trading and Supplies - Enterprise ERP</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  
   <style>
     .screen-content { display: none; }
     .screen-content.active { display: block; }
-    
     @media print {
       body * { visibility: hidden; }
       #printable-document, #printable-document * { visibility: visible; }
-      #printable-document {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        padding: 24px;
-        background: white;
-      }
+      #printable-document { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 24px; background: white; }
       .no-print { display: none !important; }
     }
   </style>
@@ -37,22 +27,19 @@
           <i class="fa-solid fa-cubes text-2xl"></i>
         </div>
         <div>
-          <h2 class="text-xl font-bold text-slate-900 leading-tight">UnityCore Trading and Supplies</h2>
-          <p class="text-xs text-slate-500">Enterprise Access Gateway (SAP Architecture)</p>
+          <h2 class="text-xl font-bold text-slate-900 leading-tight">UnityCore Trading &amp; Supplies</h2>
+          <p class="text-xs text-slate-500">Enterprise Digital Core</p>
         </div>
       </div>
-
       <div id="login-error" class="hidden mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-lg font-medium"></div>
-
       <form onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">User ID / Username</label>
           <div class="relative">
             <i class="fa-solid fa-user absolute left-3 top-3 text-slate-400 text-sm"></i>
-            <input type="text" id="login-username" value="admin" required class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter username" />
+            <input type="text" id="login-username" value="admin" required class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter user ID" />
           </div>
         </div>
-
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
           <div class="relative">
@@ -60,7 +47,6 @@
             <input type="password" id="login-password" value="admin123" required class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter password" />
           </div>
         </div>
-
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm transition shadow-sm flex items-center justify-center gap-2">
           <span>Sign In to System</span>
           <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
@@ -69,7 +55,7 @@
     </div>
   </div>
 
-  <!-- PRINT MODAL OVERLAY -->
+  <!-- PRINT MODAL -->
   <div id="print-modal" class="fixed inset-0 bg-slate-900/80 z-50 hidden flex items-center justify-center p-6 overflow-y-auto no-print">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
       <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-xl shrink-0">
@@ -91,7 +77,7 @@
     </div>
   </div>
 
-  <!-- Sidebar Navigation -->
+  <!-- SIDEBAR NAVIGATION -->
   <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 no-print">
     <div>
       <div class="p-5 border-b border-slate-800 flex items-center justify-between">
@@ -100,13 +86,12 @@
           <div>
             <h1 class="font-bold text-white text-sm leading-tight">UnityCore Trading &amp; Supplies</h1>
             <span class="text-[11px] text-emerald-400 flex items-center gap-1">
-              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> SAP-Model Architecture
+              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> Enterprise Ready
             </span>
           </div>
         </div>
       </div>
 
-      <!-- User Profile Card -->
       <div class="p-4 bg-slate-800/60 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs" id="current-user-avatar">AD</div>
@@ -138,13 +123,13 @@
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Order-to-Cash (O2C)</div>
         <button onclick="switchTab('create-so')" id="nav-create-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-plus-circle w-4"></i> 1. Create Sales Order (VA01)
+          <i class="fa-solid fa-plus-circle w-4"></i> 1. Create Sales Order
         </button>
         <button onclick="switchTab('delivery-challan')" id="nav-delivery-challan" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-truck-ramp-box w-4"></i> 2. Delivery &amp; PGI (VL01N)
+          <i class="fa-solid fa-truck-ramp-box w-4"></i> 2. Outbound Delivery (PGI)
         </button>
         <button onclick="switchTab('billing-invoice')" id="nav-billing-invoice" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-receipt w-4"></i> 3. Billing Invoice (VF01)
+          <i class="fa-solid fa-receipt w-4"></i> 3. Billing &amp; Invoicing
         </button>
         <button onclick="switchTab('so-report')" id="nav-so-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
           <i class="fa-solid fa-table-list w-4"></i> O2C Lifecycle Report
@@ -152,10 +137,10 @@
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Procure-to-Pay (P2P)</div>
         <button onclick="switchTab('create-po')" id="nav-create-po" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-cart-plus w-4"></i> Create Purchase Order (ME21N)
+          <i class="fa-solid fa-cart-plus w-4"></i> Create Purchase Order
         </button>
         <button onclick="switchTab('grn-receipt')" id="nav-grn-receipt" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-boxes-packing w-4"></i> Goods Receipt (MIGO)
+          <i class="fa-solid fa-boxes-packing w-4"></i> Goods Receipt (GRN)
         </button>
         <button onclick="switchTab('po-report')" id="nav-po-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
           <i class="fa-solid fa-file-contract w-4"></i> PO Status Report
@@ -163,28 +148,27 @@
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Master Management</div>
         <button onclick="switchTab('customer-master')" id="nav-customer-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-users w-4"></i> Customer Master (XD01)
+          <i class="fa-solid fa-users w-4"></i> Customer Master
         </button>
         <button onclick="switchTab('supplier-master')" id="nav-supplier-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-industry w-4"></i> Supplier Master (XK01)
+          <i class="fa-solid fa-industry w-4"></i> Supplier Master
         </button>
         <button onclick="switchTab('material-master')" id="nav-material-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-box-archive w-4"></i> Material Master (MM01)
+          <i class="fa-solid fa-box-archive w-4"></i> Material Master &amp; UoM
         </button>
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Administration</div>
         <button onclick="switchTab('user-management')" id="nav-user-management" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-user-shield w-4"></i> User Management (SU01)
+          <i class="fa-solid fa-user-shield w-4"></i> User Management
         </button>
       </nav>
     </div>
-
     <div class="p-4 border-t border-slate-800 text-xs text-slate-400">
       Currency: <span class="text-emerald-400 font-semibold">BDT (৳)</span>
     </div>
   </aside>
 
-  <!-- Main Workspace -->
+  <!-- MAIN WORKSPACE -->
   <main class="flex-1 flex flex-col overflow-y-auto no-print">
     <header class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center shrink-0">
       <h2 id="current-screen-title" class="text-xl font-bold text-slate-800">Executive Dashboard</h2>
@@ -263,7 +247,7 @@
                   <tr>
                     <th class="p-2.5">Invoice #</th>
                     <th class="p-2.5">Customer Name</th>
-                    <th class="p-2.5 text-right">Invoiced (BDT)</th>
+                    <th class="p-2.5 text-right">Invoiced</th>
                     <th class="p-2.5 text-right">Collected</th>
                     <th class="p-2.5 text-right">Due Balance</th>
                   </tr>
@@ -280,7 +264,7 @@
                   <tr>
                     <th class="p-2.5">PO #</th>
                     <th class="p-2.5">Supplier Name</th>
-                    <th class="p-2.5 text-right">Total (BDT)</th>
+                    <th class="p-2.5 text-right">PO Total</th>
                     <th class="p-2.5 text-right">Paid</th>
                     <th class="p-2.5 text-right">Due Balance</th>
                   </tr>
@@ -380,7 +364,7 @@
       <!-- 1. CREATE SALES ORDER -->
       <section id="create-so" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-5xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Create Sales Order (VA01)</h3>
+          <h3 class="text-base font-bold text-slate-800">1. Create Sales Order</h3>
           <p class="text-xs text-slate-500">Initiates customer commitment. Stock remains in warehouse until PGI is posted.</p>
         </div>
         <form onsubmit="handleCreateSO(event)" class="space-y-6">
@@ -417,10 +401,10 @@
               <thead class="bg-slate-50 text-slate-500 text-xs">
                 <tr>
                   <th class="p-2 text-left">Material Description</th>
-                  <th class="p-2 text-left w-20">UoM</th>
                   <th class="p-2 text-left w-24">Available</th>
                   <th class="p-2 text-left w-28">Price (BDT)</th>
-                  <th class="p-2 text-left w-20">Qty</th>
+                  <th class="p-2 text-left w-28">Order Qty</th>
+                  <th class="p-2 text-left w-20">UoM</th>
                   <th class="p-2 text-left w-28">Total</th>
                   <th class="p-2 text-center w-12"></th>
                 </tr>
@@ -438,7 +422,7 @@
       <!-- 2. OUTBOUND DELIVERY -->
       <section id="delivery-challan" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-4xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Outbound Delivery &amp; Goods Issue (VL01N)</h3>
+          <h3 class="text-base font-bold text-slate-800">2. Outbound Delivery &amp; Goods Issue (PGI)</h3>
           <p class="text-xs text-slate-500">Post Goods Issue (PGI) deducts physical stock from inventory and generates the shipping Delivery Challan.</p>
         </div>
         <div class="flex gap-3 mb-6">
@@ -451,7 +435,7 @@
       <!-- 3. BILLING INVOICE -->
       <section id="billing-invoice" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-4xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Billing &amp; Tax Invoice Creation (VF01)</h3>
+          <h3 class="text-base font-bold text-slate-800">3. Billing &amp; Tax Invoice Creation</h3>
           <p class="text-xs text-slate-500">Create Tax Invoices with reference to the <b>Delivery Challan Number (`DEL-XXXXXX`)</b> or Sales Order.</p>
         </div>
         <div class="flex gap-3 mb-6">
@@ -488,7 +472,7 @@
       <!-- CREATE PO -->
       <section id="create-po" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-4xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Create Purchase Order (ME21N)</h3>
+          <h3 class="text-base font-bold text-slate-800">Create Purchase Order</h3>
         </div>
         <form onsubmit="handleCreatePO(event)" class="space-y-6">
           <div class="grid grid-cols-2 gap-4">
@@ -510,9 +494,9 @@
               <thead class="bg-slate-50 text-slate-500 text-xs">
                 <tr>
                   <th class="p-2 text-left">Material Description</th>
-                  <th class="p-2 text-left w-20">UoM</th>
                   <th class="p-2 text-left w-28">Cost (BDT)</th>
-                  <th class="p-2 text-left w-24">Qty</th>
+                  <th class="p-2 text-left w-28">Order Qty</th>
+                  <th class="p-2 text-left w-20">UoM</th>
                   <th class="p-2 text-left w-28">Total</th>
                   <th class="p-2 text-center w-12"></th>
                 </tr>
@@ -530,7 +514,7 @@
       <!-- GOODS RECEIPT (GRN) -->
       <section id="grn-receipt" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-3xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Goods Receipt Posting (MIGO)</h3>
+          <h3 class="text-base font-bold text-slate-800">Goods Receipt Posting (GRN)</h3>
         </div>
         <div class="flex gap-3 mb-6">
           <input type="text" id="grn-lookup-po" placeholder="Enter Issued PO Number (e.g. 80001001)" class="border border-slate-300 rounded px-4 py-2 text-sm w-72" />
@@ -563,7 +547,7 @@
       <!-- CUSTOMER MASTER -->
       <section id="customer-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 id="cust-form-title" class="text-base font-bold text-slate-800 mb-4">Add / Edit Customer Record (XD01)</h3>
+          <h3 id="cust-form-title" class="text-base font-bold text-slate-800 mb-4">Add / Edit Customer Record</h3>
           <form onsubmit="handleSaveCustomer(event)" class="grid grid-cols-1 md:grid-cols-6 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Code</label>
@@ -589,7 +573,8 @@
               <label class="block text-xs font-semibold text-slate-600 mb-1">Terms</label>
               <div class="flex gap-2">
                 <input type="text" id="cust-terms" placeholder="Net 30" required class="w-24 border border-slate-300 rounded px-2 py-2 text-sm" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
+                <button type="submit" id="cust-save-btn" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
+                <button type="button" onclick="cancelEditCustomer()" id="cust-cancel-btn" class="hidden bg-slate-200 text-slate-700 px-3 py-2 rounded text-xs font-semibold hover:bg-slate-300">Cancel</button>
               </div>
             </div>
           </form>
@@ -618,7 +603,7 @@
       <!-- SUPPLIER MASTER -->
       <section id="supplier-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Add / Edit Supplier Record (XK01)</h3>
+          <h3 id="sup-form-title" class="text-base font-bold text-slate-800 mb-4">Add / Edit Supplier Record</h3>
           <form onsubmit="handleSaveSupplier(event)" class="grid grid-cols-1 md:grid-cols-6 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Code</label>
@@ -644,7 +629,8 @@
               <label class="block text-xs font-semibold text-slate-600 mb-1">Lead Time</label>
               <div class="flex gap-2">
                 <input type="text" id="sup-lead" placeholder="5 Days" required class="w-24 border border-slate-300 rounded px-2 py-2 text-sm" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
+                <button type="submit" id="sup-save-btn" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
+                <button type="button" onclick="cancelEditSupplier()" id="sup-cancel-btn" class="hidden bg-slate-200 text-slate-700 px-3 py-2 rounded text-xs font-semibold hover:bg-slate-300">Cancel</button>
               </div>
             </div>
           </form>
@@ -673,7 +659,7 @@
       <!-- MATERIAL MASTER -->
       <section id="material-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Add Material Record &amp; Base UoM (MM01)</h3>
+          <h3 id="mat-form-title" class="text-base font-bold text-slate-800 mb-4">Add / Edit Material Master Record</h3>
           <form onsubmit="handleSaveMaterial(event)" class="grid grid-cols-1 md:grid-cols-7 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Code</label>
@@ -707,7 +693,8 @@
               <div class="flex gap-2">
                 <input type="number" id="mat-stock" placeholder="Stock" required class="w-1/2 border border-slate-300 rounded px-2 py-2 text-sm" />
                 <input type="number" id="mat-reorder" placeholder="Min" required class="w-1/2 border border-slate-300 rounded px-2 py-2 text-sm" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
+                <button type="submit" id="mat-save-btn" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
+                <button type="button" onclick="cancelEditMaterial()" id="mat-cancel-btn" class="hidden bg-slate-200 text-slate-700 px-3 py-2 rounded text-xs font-semibold hover:bg-slate-300">Cancel</button>
               </div>
             </div>
           </form>
@@ -734,10 +721,10 @@
         </div>
       </section>
 
-      <!-- USER MANAGEMENT (SU01) -->
+      <!-- USER MANAGEMENT -->
       <section id="user-management" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">User Registration &amp; Role Authorization (SU01)</h3>
+          <h3 id="user-form-title" class="text-base font-bold text-slate-800 mb-4">Add / Edit User Record</h3>
           <form onsubmit="handleSaveUser(event)" class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">User ID / Username</label>
@@ -762,7 +749,10 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">&nbsp;</label>
-              <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow">Save User</button>
+              <div class="flex gap-2">
+                <button type="submit" id="user-save-btn" class="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow">Save User</button>
+                <button type="button" onclick="cancelEditUser()" id="user-cancel-btn" class="hidden bg-slate-200 text-slate-700 px-4 py-2 rounded text-sm font-medium hover:bg-slate-300">Cancel</button>
+              </div>
             </div>
           </form>
         </div>
@@ -789,7 +779,7 @@
 
   <!-- JAVASCRIPT GLOBAL RUNTIME -->
   <script>
-    // State Store with Enriched Seed Data
+    // State Store with Seed Data
     window.customers = [
       { code: 'CUST-1001', name: 'Apex Retail Ltd', phone: '+880 1711-234567', email: 'orders@apexretail.com', address: 'Plot 12, Gulshan-2, Dhaka', terms: 'Net 30' },
       { code: 'CUST-1002', name: 'Nova Logistics Corp', phone: '+880 1819-876543', email: 'procure@novalog.com', address: 'Agrabad Commercial Area, Chittagong', terms: 'Net 45' },
@@ -811,7 +801,6 @@
     window.purchaseOrders = [
       { id: '80001001', date: '2026-08-16', supCode: 'SUP-201', status: 'Completed', items: [{ matCode: 'MAT-501', uom: 'PCS', qty: 30, cost: 8200 }], total: 246000, paid: 100000 }
     ];
-    window.paymentVouchers = [];
     window.users = [
       { id: 'admin', name: 'System Administrator', pass: 'admin123', role: 'Admin', status: 'Active' },
       { id: 'sales01', name: 'Karim Ahmed', pass: 'pass123', role: 'Sales Executive', status: 'Active' },
@@ -839,7 +828,7 @@
         return;
       }
       if (user.status === 'Locked') {
-        document.getElementById('login-error').innerText = "Account is locked. Contact admin.";
+        document.getElementById('login-error').innerText = "Account is locked. Contact administrator.";
         document.getElementById('login-error').classList.remove('hidden');
         return;
       }
@@ -878,7 +867,7 @@
       window.refreshViews();
     };
 
-    // User Management
+    // User Edit & Management
     window.handleSaveUser = function(e) {
       e.preventDefault();
       const id = document.getElementById('user-id-input').value.trim().toLowerCase();
@@ -888,13 +877,39 @@
       
       const idx = window.users.findIndex(u => u.id === id);
       if (idx !== -1) {
-        window.users[idx] = { id, name, pass, role, status: 'Active' };
+        window.users[idx] = { id, name, pass, role, status: window.users[idx].status };
         window.notify(`User ${id} updated.`);
       } else {
         window.users.push({ id, name, pass, role, status: 'Active' });
         window.notify(`User ${id} created.`);
       }
+      cancelEditUser();
       window.refreshViews();
+    };
+
+    window.editUser = function(id) {
+      const u = window.users.find(x => x.id === id);
+      if (!u) return;
+      document.getElementById('user-id-input').value = u.id;
+      document.getElementById('user-id-input').readOnly = true;
+      document.getElementById('user-id-input').classList.add('bg-slate-100');
+      document.getElementById('user-fullname').value = u.name;
+      document.getElementById('user-pass').value = u.pass;
+      document.getElementById('user-role').value = u.role;
+      document.getElementById('user-form-title').innerText = `Edit User: ${u.id}`;
+      document.getElementById('user-save-btn').innerText = 'Update User';
+      document.getElementById('user-cancel-btn').classList.remove('hidden');
+    };
+
+    window.cancelEditUser = function() {
+      document.getElementById('user-id-input').value = '';
+      document.getElementById('user-id-input').readOnly = false;
+      document.getElementById('user-id-input').classList.remove('bg-slate-100');
+      document.getElementById('user-fullname').value = '';
+      document.getElementById('user-pass').value = '';
+      document.getElementById('user-form-title').innerText = 'Add / Edit User Record';
+      document.getElementById('user-save-btn').innerText = 'Save User';
+      document.getElementById('user-cancel-btn').classList.add('hidden');
     };
 
     window.toggleUser = function(id) {
@@ -906,7 +921,154 @@
       }
     };
 
-    // Create Sales Order (VA01)
+    // Master Records Edit & Saves
+    window.handleSaveCustomer = function(e) {
+      e.preventDefault();
+      const code = document.getElementById('cust-code').value.trim().toUpperCase();
+      const payload = {
+        code,
+        name: document.getElementById('cust-name').value.trim(),
+        phone: document.getElementById('cust-phone').value.trim(),
+        email: document.getElementById('cust-email').value.trim(),
+        address: document.getElementById('cust-address').value.trim(),
+        terms: document.getElementById('cust-terms').value.trim()
+      };
+      const idx = window.customers.findIndex(c => c.code === code);
+      if (idx !== -1) window.customers[idx] = payload; else window.customers.push(payload);
+      cancelEditCustomer();
+      window.notify(`Customer ${code} saved.`);
+      window.refreshViews();
+    };
+
+    window.editCustomer = function(code) {
+      const c = window.customers.find(x => x.code === code);
+      if (!c) return;
+      document.getElementById('cust-code').value = c.code;
+      document.getElementById('cust-code').readOnly = true;
+      document.getElementById('cust-code').classList.add('bg-slate-100');
+      document.getElementById('cust-name').value = c.name;
+      document.getElementById('cust-phone').value = c.phone;
+      document.getElementById('cust-email').value = c.email;
+      document.getElementById('cust-address').value = c.address;
+      document.getElementById('cust-terms').value = c.terms;
+      document.getElementById('cust-form-title').innerText = `Edit Customer: ${c.code}`;
+      document.getElementById('cust-save-btn').innerText = 'Update';
+      document.getElementById('cust-cancel-btn').classList.remove('hidden');
+    };
+
+    window.cancelEditCustomer = function() {
+      document.getElementById('cust-code').value = '';
+      document.getElementById('cust-code').readOnly = false;
+      document.getElementById('cust-code').classList.remove('bg-slate-100');
+      document.getElementById('cust-name').value = '';
+      document.getElementById('cust-phone').value = '';
+      document.getElementById('cust-email').value = '';
+      document.getElementById('cust-address').value = '';
+      document.getElementById('cust-terms').value = '';
+      document.getElementById('cust-form-title').innerText = 'Add / Edit Customer Record';
+      document.getElementById('cust-save-btn').innerText = 'Save';
+      document.getElementById('cust-cancel-btn').classList.add('hidden');
+    };
+
+    window.handleSaveSupplier = function(e) {
+      e.preventDefault();
+      const code = document.getElementById('sup-code').value.trim().toUpperCase();
+      const payload = {
+        code,
+        name: document.getElementById('sup-name').value.trim(),
+        phone: document.getElementById('sup-phone').value.trim(),
+        email: document.getElementById('sup-email').value.trim(),
+        address: document.getElementById('sup-address').value.trim(),
+        lead: document.getElementById('sup-lead').value.trim()
+      };
+      const idx = window.suppliers.findIndex(s => s.code === code);
+      if (idx !== -1) window.suppliers[idx] = payload; else window.suppliers.push(payload);
+      cancelEditSupplier();
+      window.notify(`Supplier ${code} saved.`);
+      window.refreshViews();
+    };
+
+    window.editSupplier = function(code) {
+      const s = window.suppliers.find(x => x.code === code);
+      if (!s) return;
+      document.getElementById('sup-code').value = s.code;
+      document.getElementById('sup-code').readOnly = true;
+      document.getElementById('sup-code').classList.add('bg-slate-100');
+      document.getElementById('sup-name').value = s.name;
+      document.getElementById('sup-phone').value = s.phone;
+      document.getElementById('sup-email').value = s.email;
+      document.getElementById('sup-address').value = s.address;
+      document.getElementById('sup-lead').value = s.lead;
+      document.getElementById('sup-form-title').innerText = `Edit Supplier: ${s.code}`;
+      document.getElementById('sup-save-btn').innerText = 'Update';
+      document.getElementById('sup-cancel-btn').classList.remove('hidden');
+    };
+
+    window.cancelEditSupplier = function() {
+      document.getElementById('sup-code').value = '';
+      document.getElementById('sup-code').readOnly = false;
+      document.getElementById('sup-code').classList.remove('bg-slate-100');
+      document.getElementById('sup-name').value = '';
+      document.getElementById('sup-phone').value = '';
+      document.getElementById('sup-email').value = '';
+      document.getElementById('sup-address').value = '';
+      document.getElementById('sup-lead').value = '';
+      document.getElementById('sup-form-title').innerText = 'Add / Edit Supplier Record';
+      document.getElementById('sup-save-btn').innerText = 'Save';
+      document.getElementById('sup-cancel-btn').classList.add('hidden');
+    };
+
+    window.handleSaveMaterial = function(e) {
+      e.preventDefault();
+      const code = document.getElementById('mat-code').value.trim().toUpperCase();
+      const payload = {
+        code,
+        desc: document.getElementById('mat-desc').value.trim(),
+        uom: document.getElementById('mat-uom').value,
+        price: parseFloat(document.getElementById('mat-price').value) || 0,
+        cost: parseFloat(document.getElementById('mat-cost').value) || 0,
+        stock: parseInt(document.getElementById('mat-stock').value) || 0,
+        reorder: parseInt(document.getElementById('mat-reorder').value) || 0
+      };
+      const idx = window.materials.findIndex(m => m.code === code);
+      if (idx !== -1) window.materials[idx] = payload; else window.materials.push(payload);
+      cancelEditMaterial();
+      window.notify(`Material ${code} saved.`);
+      window.refreshViews();
+    };
+
+    window.editMaterial = function(code) {
+      const m = window.materials.find(x => x.code === code);
+      if (!m) return;
+      document.getElementById('mat-code').value = m.code;
+      document.getElementById('mat-code').readOnly = true;
+      document.getElementById('mat-code').classList.add('bg-slate-100');
+      document.getElementById('mat-desc').value = m.desc;
+      document.getElementById('mat-uom').value = m.uom;
+      document.getElementById('mat-price').value = m.price;
+      document.getElementById('mat-cost').value = m.cost;
+      document.getElementById('mat-stock').value = m.stock;
+      document.getElementById('mat-reorder').value = m.reorder;
+      document.getElementById('mat-form-title').innerText = `Edit Material: ${m.code}`;
+      document.getElementById('mat-save-btn').innerText = 'Update';
+      document.getElementById('mat-cancel-btn').classList.remove('hidden');
+    };
+
+    window.cancelEditMaterial = function() {
+      document.getElementById('mat-code').value = '';
+      document.getElementById('mat-code').readOnly = false;
+      document.getElementById('mat-code').classList.remove('bg-slate-100');
+      document.getElementById('mat-desc').value = '';
+      document.getElementById('mat-price').value = '';
+      document.getElementById('mat-cost').value = '';
+      document.getElementById('mat-stock').value = '';
+      document.getElementById('mat-reorder').value = '';
+      document.getElementById('mat-form-title').innerText = 'Add / Edit Material Master Record';
+      document.getElementById('mat-save-btn').innerText = 'Save';
+      document.getElementById('mat-cancel-btn').classList.add('hidden');
+    };
+
+    // Sales Order Creation (VA01)
     function initCreateSO() {
       document.getElementById('so-number').value = '1000' + Math.floor(1000 + Math.random() * 9000);
       document.getElementById('so-date').value = new Date().toISOString().split('T')[0];
@@ -937,10 +1099,10 @@
             ${window.materials.map(m => `<option value="${m.code}">${m.code} - ${m.desc}</option>`).join('')}
           </select>
         </td>
-        <td class="p-2 font-semibold text-xs row-uom">-</td>
         <td class="p-2 font-mono text-xs row-avail">-</td>
         <td class="p-2"><input type="number" readonly class="row-price w-full bg-slate-50 border rounded p-1 text-xs font-mono" /></td>
         <td class="p-2"><input type="number" min="1" value="1" oninput="calcSOTotals()" class="row-qty w-full border rounded p-1 text-xs" /></td>
+        <td class="p-2 font-semibold text-xs row-uom">-</td>
         <td class="p-2 font-semibold text-xs row-total font-mono">৳ 0.00</td>
         <td class="p-2 text-center"><button type="button" onclick="this.closest('tr').remove(); calcSOTotals();" class="text-red-500 text-xs"><i class="fa-solid fa-trash"></i></button></td>
       `;
@@ -951,9 +1113,9 @@
       const tr = select.closest('tr');
       const m = window.materials.find(x => x.code === select.value);
       if (m) {
-        tr.querySelector('.row-uom').innerText = m.uom;
         tr.querySelector('.row-avail').innerText = m.stock;
         tr.querySelector('.row-price').value = m.price;
+        tr.querySelector('.row-uom').innerText = m.uom;
       }
       window.calcSOTotals();
     };
@@ -970,7 +1132,7 @@
       document.getElementById('so-grand-total').innerText = `৳ ${grand.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
     };
 
-    window.handleCreateSO = async function(e) {
+    window.handleCreateSO = function(e) {
       e.preventDefault();
       const id = document.getElementById('so-number').value;
       const date = document.getElementById('so-date').value;
@@ -1015,12 +1177,12 @@
         </div>
         <table class="w-full text-xs text-left my-2">
           <thead class="bg-slate-200 text-slate-700">
-            <tr><th class="p-2">Material Description</th><th class="p-2">UoM</th><th class="p-2 text-right">Order Qty</th><th class="p-2 text-right">Warehouse Stock</th></tr>
+            <tr><th class="p-2">Material Description</th><th class="p-2 text-right">Order Qty</th><th class="p-2">UoM</th><th class="p-2 text-right">Warehouse Stock</th></tr>
           </thead>
           <tbody>
             ${so.items.map(i => {
               const m = window.materials.find(x => x.code === i.matCode);
-              return `<tr class="border-b"><td class="p-2 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right font-bold">${i.qty}</td><td class="p-2 text-right font-mono">${m ? m.stock : 0}</td></tr>`;
+              return `<tr class="border-b"><td class="p-2 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2 text-right font-bold">${i.qty}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right font-mono">${m ? m.stock : 0}</td></tr>`;
             }).join('')}
           </tbody>
         </table>
@@ -1073,12 +1235,12 @@
         </div>
         <table class="w-full text-xs text-left my-2">
           <thead class="bg-slate-200 text-slate-700">
-            <tr><th class="p-2">Material Description</th><th class="p-2">UoM</th><th class="p-2 text-right">Invoiced Qty</th><th class="p-2 text-right">Rate</th><th class="p-2 text-right">Total</th></tr>
+            <tr><th class="p-2">Material Description</th><th class="p-2 text-right">Invoiced Qty</th><th class="p-2">UoM</th><th class="p-2 text-right">Rate</th><th class="p-2 text-right">Total</th></tr>
           </thead>
           <tbody>
             ${so.items.map(i => {
               const m = window.materials.find(x => x.code === i.matCode);
-              return `<tr class="border-b"><td class="p-2">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right">${i.qty}</td><td class="p-2 text-right">৳ ${i.price.toLocaleString()}</td><td class="p-2 text-right font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`;
+              return `<tr class="border-b"><td class="p-2">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2 text-right font-bold">${i.qty}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right">৳ ${i.price.toLocaleString()}</td><td class="p-2 text-right font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`;
             }).join('')}
           </tbody>
         </table>
@@ -1172,59 +1334,6 @@
       window.switchTab('finance-visibility');
     };
 
-    // Master Records
-    window.handleSaveCustomer = function(e) {
-      e.preventDefault();
-      const code = document.getElementById('cust-code').value.trim().toUpperCase();
-      const payload = {
-        code,
-        name: document.getElementById('cust-name').value.trim(),
-        phone: document.getElementById('cust-phone').value.trim(),
-        email: document.getElementById('cust-email').value.trim(),
-        address: document.getElementById('cust-address').value.trim(),
-        terms: document.getElementById('cust-terms').value.trim()
-      };
-      const idx = window.customers.findIndex(c => c.code === code);
-      if (idx !== -1) window.customers[idx] = payload; else window.customers.push(payload);
-      window.notify(`Customer ${code} saved.`);
-      window.refreshViews();
-    };
-
-    window.handleSaveSupplier = function(e) {
-      e.preventDefault();
-      const code = document.getElementById('sup-code').value.trim().toUpperCase();
-      const payload = {
-        code,
-        name: document.getElementById('sup-name').value.trim(),
-        phone: document.getElementById('sup-phone').value.trim(),
-        email: document.getElementById('sup-email').value.trim(),
-        address: document.getElementById('sup-address').value.trim(),
-        lead: document.getElementById('sup-lead').value.trim()
-      };
-      const idx = window.suppliers.findIndex(s => s.code === code);
-      if (idx !== -1) window.suppliers[idx] = payload; else window.suppliers.push(payload);
-      window.notify(`Supplier ${code} saved.`);
-      window.refreshViews();
-    };
-
-    window.handleSaveMaterial = function(e) {
-      e.preventDefault();
-      const code = document.getElementById('mat-code').value.trim().toUpperCase();
-      const payload = {
-        code,
-        desc: document.getElementById('mat-desc').value.trim(),
-        uom: document.getElementById('mat-uom').value,
-        price: parseFloat(document.getElementById('mat-price').value) || 0,
-        cost: parseFloat(document.getElementById('mat-cost').value) || 0,
-        stock: parseInt(document.getElementById('mat-stock').value) || 0,
-        reorder: parseInt(document.getElementById('mat-reorder').value) || 0
-      };
-      const idx = window.materials.findIndex(m => m.code === code);
-      if (idx !== -1) window.materials[idx] = payload; else window.materials.push(payload);
-      window.notify(`Material ${code} saved.`);
-      window.refreshViews();
-    };
-
     // Purchase & GRN
     function initCreatePO() {
       document.getElementById('po-number').value = '8000' + Math.floor(1000 + Math.random() * 9000);
@@ -1244,9 +1353,9 @@
             ${window.materials.map(m => `<option value="${m.code}">${m.code} - ${m.desc}</option>`).join('')}
           </select>
         </td>
-        <td class="p-2 font-semibold text-xs po-row-uom">-</td>
         <td class="p-2"><input type="number" readonly class="po-row-cost w-full bg-slate-50 border rounded p-1 text-xs font-mono" /></td>
         <td class="p-2"><input type="number" min="1" value="20" oninput="calcPOTotals()" class="po-row-qty w-full border rounded p-1 text-xs" /></td>
+        <td class="p-2 font-semibold text-xs po-row-uom">-</td>
         <td class="p-2 font-semibold text-xs po-row-total font-mono">৳ 0.00</td>
         <td class="p-2 text-center"><button type="button" onclick="this.closest('tr').remove(); calcPOTotals();" class="text-red-500 text-xs"><i class="fa-solid fa-trash"></i></button></td>
       `;
@@ -1257,8 +1366,8 @@
       const tr = select.closest('tr');
       const m = window.materials.find(x => x.code === select.value);
       if (m) {
-        tr.querySelector('.po-row-uom').innerText = m.uom;
         tr.querySelector('.po-row-cost').value = m.cost;
+        tr.querySelector('.po-row-uom').innerText = m.uom;
       }
       window.calcPOTotals();
     };
@@ -1305,7 +1414,7 @@
       card.innerHTML = `
         <h4 class="font-bold text-slate-800">Receive Materials for PO #${po.id} (${sup ? sup.name : po.supCode})</h4>
         <button onclick="postGoodsReceipt('${po.id}')" class="w-full bg-emerald-600 text-white font-medium py-2 rounded-lg hover:bg-emerald-700 mt-2 shadow">
-          Post Goods Receipt (MIGO) &amp; Replenish Stock
+          Post Goods Receipt (GRN) &amp; Replenish Stock
         </button>
       `;
       card.classList.remove('hidden');
@@ -1377,17 +1486,42 @@
         </tr>
       `).join('');
 
-      // Master Tables
+      // Master Tables with Edit Actions
       document.getElementById('customer-table-body').innerHTML = window.customers.map(c => `
-        <tr class="border-b"><td class="p-3 font-mono font-bold">${c.code}</td><td class="p-3 font-semibold">${c.name}</td><td class="p-3 font-mono text-xs">${c.phone}</td><td class="p-3 text-xs">${c.email}</td><td class="p-3 text-xs text-slate-600">${c.address}</td><td class="p-3 font-semibold">${c.terms}</td><td class="p-3 text-right"><button class="text-xs text-blue-600 hover:underline">Edit</button></td></tr>
+        <tr class="border-b">
+          <td class="p-3 font-mono font-bold">${c.code}</td>
+          <td class="p-3 font-semibold">${c.name}</td>
+          <td class="p-3 font-mono text-xs">${c.phone}</td>
+          <td class="p-3 text-xs">${c.email}</td>
+          <td class="p-3 text-xs text-slate-600">${c.address}</td>
+          <td class="p-3 font-semibold">${c.terms}</td>
+          <td class="p-3 text-right"><button onclick="editCustomer('${c.code}')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-2 py-1 rounded border border-blue-200 font-medium">Edit</button></td>
+        </tr>
       `).join('');
 
       document.getElementById('supplier-table-body').innerHTML = window.suppliers.map(s => `
-        <tr class="border-b"><td class="p-3 font-mono font-bold">${s.code}</td><td class="p-3 font-semibold">${s.name}</td><td class="p-3 font-mono text-xs">${s.phone}</td><td class="p-3 text-xs">${s.email}</td><td class="p-3 text-xs text-slate-600">${s.address}</td><td class="p-3 font-semibold">${s.lead}</td><td class="p-3 text-right"><button class="text-xs text-blue-600 hover:underline">Edit</button></td></tr>
+        <tr class="border-b">
+          <td class="p-3 font-mono font-bold">${s.code}</td>
+          <td class="p-3 font-semibold">${s.name}</td>
+          <td class="p-3 font-mono text-xs">${s.phone}</td>
+          <td class="p-3 text-xs">${s.email}</td>
+          <td class="p-3 text-xs text-slate-600">${s.address}</td>
+          <td class="p-3 font-semibold">${s.lead}</td>
+          <td class="p-3 text-right"><button onclick="editSupplier('${s.code}')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-2 py-1 rounded border border-blue-200 font-medium">Edit</button></td>
+        </tr>
       `).join('');
 
       document.getElementById('material-table-body').innerHTML = window.materials.map(m => `
-        <tr class="border-b"><td class="p-3 font-mono font-bold">${m.code}</td><td class="p-3 font-semibold">${m.desc}</td><td class="p-3 font-bold">${m.uom}</td><td class="p-3 font-mono">৳ ${m.price.toLocaleString()}</td><td class="p-3 font-mono">৳ ${m.cost.toLocaleString()}</td><td class="p-3 font-mono font-bold">${m.stock}</td><td class="p-3 font-mono">${m.reorder}</td><td class="p-3 text-right"><button class="text-xs text-blue-600 hover:underline">Edit</button></td></tr>
+        <tr class="border-b">
+          <td class="p-3 font-mono font-bold">${m.code}</td>
+          <td class="p-3 font-semibold">${m.desc}</td>
+          <td class="p-3 font-bold">${m.uom}</td>
+          <td class="p-3 font-mono">৳ ${m.price.toLocaleString()}</td>
+          <td class="p-3 font-mono">৳ ${m.cost.toLocaleString()}</td>
+          <td class="p-3 font-mono font-bold">${m.stock}</td>
+          <td class="p-3 font-mono">${m.reorder}</td>
+          <td class="p-3 text-right"><button onclick="editMaterial('${m.code}')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-2 py-1 rounded border border-blue-200 font-medium">Edit</button></td>
+        </tr>
       `).join('');
 
       // User Directory Table
@@ -1397,8 +1531,9 @@
           <td class="p-3 font-semibold">${u.name}</td>
           <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 border">${u.role}</span></td>
           <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${u.status}</span></td>
-          <td class="p-3 text-right">
-            <button onclick="toggleUser('${u.id}')" class="text-xs text-slate-600 hover:underline">${u.status === 'Active' ? 'Lock Account' : 'Unlock'}</button>
+          <td class="p-3 text-right space-x-1">
+            <button onclick="editUser('${u.id}')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-2 py-1 rounded border border-blue-200 font-medium">Edit</button>
+            <button onclick="toggleUser('${u.id}')" class="text-xs text-slate-600 hover:underline ml-1">${u.status === 'Active' ? 'Lock' : 'Unlock'}</button>
           </td>
         </tr>
       `).join('');
@@ -1489,12 +1624,12 @@
         </div>
         <table class="w-full text-xs text-left mb-6">
           <thead class="bg-slate-900 text-white uppercase">
-            <tr><th class="p-2.5">Line</th><th class="p-2.5">Material Code</th><th class="p-2.5">Material Description</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Dispatched Quantity</th></tr>
+            <tr><th class="p-2.5">Line</th><th class="p-2.5">Material Code</th><th class="p-2.5">Material Description</th><th class="p-2.5 text-right">Dispatched Qty</th><th class="p-2.5 text-center">Base UoM</th></tr>
           </thead>
           <tbody>
             ${so.items.map((i, idx) => {
               const m = window.materials.find(x => x.code === i.matCode);
-              return `<tr class="border-b"><td class="p-2.5 font-mono">${idx+1}</td><td class="p-2.5 font-mono font-bold">${i.matCode}</td><td class="p-2.5 font-semibold">${m ? m.desc : ''}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-bold text-sm font-mono">${i.qty}</td></tr>`;
+              return `<tr class="border-b"><td class="p-2.5 font-mono">${idx+1}</td><td class="p-2.5 font-mono font-bold">${i.matCode}</td><td class="p-2.5 font-semibold">${m ? m.desc : ''}</td><td class="p-2.5 text-right font-bold text-sm font-mono">${i.qty}</td><td class="p-2.5 text-center font-bold">${i.uom}</td></tr>`;
             }).join('')}
           </tbody>
         </table>
@@ -1542,12 +1677,12 @@
         </div>
         <table class="w-full text-xs text-left mb-6">
           <thead class="bg-blue-900 text-white uppercase">
-            <tr><th class="p-2.5">Line</th><th class="p-2.5">Material Description</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Invoiced Qty</th><th class="p-2.5 text-right">Rate (BDT)</th><th class="p-2.5 text-right">Amount (BDT)</th></tr>
+            <tr><th class="p-2.5">Line</th><th class="p-2.5">Material Description</th><th class="p-2.5 text-right">Invoiced Qty</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Rate (BDT)</th><th class="p-2.5 text-right">Amount (BDT)</th></tr>
           </thead>
           <tbody>
             ${so.items.map((i, idx) => {
               const m = window.materials.find(x => x.code === i.matCode);
-              return `<tr class="border-b"><td class="p-2.5 font-mono">${idx+1}</td><td class="p-2.5 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-bold">${i.qty}</td><td class="p-2.5 text-right font-mono">৳ ${i.price.toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`;
+              return `<tr class="border-b"><td class="p-2.5 font-mono">${idx+1}</td><td class="p-2.5 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2.5 text-right font-bold">${i.qty}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-mono">৳ ${i.price.toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`;
             }).join('')}
           </tbody>
         </table>
@@ -1594,12 +1729,12 @@
         </div>
         <table class="w-full text-xs text-left mb-6">
           <thead class="bg-slate-900 text-white uppercase">
-            <tr><th class="p-2.5">Material Description</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Order Qty</th><th class="p-2.5 text-right">Cost (BDT)</th><th class="p-2.5 text-right">Net Amount</th></tr>
+            <tr><th class="p-2.5">Material Description</th><th class="p-2.5 text-right">Order Qty</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Cost (BDT)</th><th class="p-2.5 text-right">Net Amount</th></tr>
           </thead>
           <tbody>
             ${po.items.map(i => {
               const m = window.materials.find(x => x.code === i.matCode);
-              return `<tr class="border-b"><td class="p-2.5 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-bold">${i.qty}</td><td class="p-2.5 text-right font-mono">৳ ${i.cost.toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold">৳ ${(i.qty * i.cost).toLocaleString()}</td></tr>`;
+              return `<tr class="border-b"><td class="p-2.5 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2.5 text-right font-bold">${i.qty}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-mono">৳ ${i.cost.toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold">৳ ${(i.qty * i.cost).toLocaleString()}</td></tr>`;
             }).join('')}
           </tbody>
         </table>
