@@ -3,16 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UnityCore Trading and Supplies - Integrated ERP (BDT)</title>
+  <title>UnityCore Trading and Supplies - Enterprise ERP &amp; Financials (BDT)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
   <style>
     .screen-content { display: none; }
     .screen-content.active { display: block; }
+    
     @media print {
       body * { visibility: hidden; }
       #printable-document, #printable-document * { visibility: visible; }
-      #printable-document { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 20px; background: white; }
+      #printable-document {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 24px;
+        background: white;
+      }
       .no-print { display: none !important; }
     }
   </style>
@@ -28,7 +38,7 @@
         </div>
         <div>
           <h2 class="text-xl font-bold text-slate-900 leading-tight">UnityCore Trading and Supplies</h2>
-          <p class="text-xs text-slate-500">Cloud Enterprise Portal</p>
+          <p class="text-xs text-slate-500">Enterprise Access Gateway (SAP Architecture)</p>
         </div>
       </div>
 
@@ -67,7 +77,7 @@
           <i class="fa-solid fa-print text-blue-600"></i> Document Print Preview
         </span>
         <div class="flex items-center gap-2">
-          <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2">
+          <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 shadow">
             <i class="fa-solid fa-print"></i> Print Document
           </button>
           <button onclick="closePrintModal()" class="text-slate-400 hover:text-slate-600 p-1.5">
@@ -89,8 +99,8 @@
           <i class="fa-solid fa-cubes text-blue-500 text-2xl"></i>
           <div>
             <h1 class="font-bold text-white text-sm leading-tight">UnityCore Trading &amp; Supplies</h1>
-            <span id="conn-status" class="text-[11px] text-emerald-400 flex items-center gap-1">
-              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> Online / Cloud
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1">
+              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> SAP-Model Architecture
             </span>
           </div>
         </div>
@@ -128,24 +138,24 @@
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Order-to-Cash (O2C)</div>
         <button onclick="switchTab('create-so')" id="nav-create-so" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-plus-circle w-4"></i> 1. Create Sales Order
+          <i class="fa-solid fa-plus-circle w-4"></i> 1. Create Sales Order (VA01)
         </button>
         <button onclick="switchTab('delivery-challan')" id="nav-delivery-challan" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-truck-ramp-box w-4"></i> 2. Outbound Delivery (PGI)
+          <i class="fa-solid fa-truck-ramp-box w-4"></i> 2. Delivery &amp; PGI (VL01N)
         </button>
         <button onclick="switchTab('billing-invoice')" id="nav-billing-invoice" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-receipt w-4"></i> 3. Billing &amp; Invoicing
+          <i class="fa-solid fa-receipt w-4"></i> 3. Billing Invoice (VF01)
         </button>
         <button onclick="switchTab('so-report')" id="nav-so-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-table-list w-4"></i> O2C Tracking Report
+          <i class="fa-solid fa-table-list w-4"></i> O2C Lifecycle Report
         </button>
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Procure-to-Pay (P2P)</div>
         <button onclick="switchTab('create-po')" id="nav-create-po" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-cart-plus w-4"></i> Create Purchase Order
+          <i class="fa-solid fa-cart-plus w-4"></i> Create Purchase Order (ME21N)
         </button>
         <button onclick="switchTab('grn-receipt')" id="nav-grn-receipt" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-boxes-packing w-4"></i> Goods Receipt (GRN)
+          <i class="fa-solid fa-boxes-packing w-4"></i> Goods Receipt (MIGO)
         </button>
         <button onclick="switchTab('po-report')" id="nav-po-report" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
           <i class="fa-solid fa-file-contract w-4"></i> PO Status Report
@@ -153,13 +163,18 @@
 
         <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Master Management</div>
         <button onclick="switchTab('customer-master')" id="nav-customer-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-users w-4"></i> Customer Master
+          <i class="fa-solid fa-users w-4"></i> Customer Master (XD01)
         </button>
         <button onclick="switchTab('supplier-master')" id="nav-supplier-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-industry w-4"></i> Supplier Master
+          <i class="fa-solid fa-industry w-4"></i> Supplier Master (XK01)
         </button>
         <button onclick="switchTab('material-master')" id="nav-material-master" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
-          <i class="fa-solid fa-box-archive w-4"></i> Material Master &amp; UoM
+          <i class="fa-solid fa-box-archive w-4"></i> Material Master (MM01)
+        </button>
+
+        <div class="pt-3 pb-1 text-xs font-bold text-slate-500 uppercase px-3">Administration</div>
+        <button onclick="switchTab('user-management')" id="nav-user-management" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800">
+          <i class="fa-solid fa-user-shield w-4"></i> User Management (SU01)
         </button>
       </nav>
     </div>
@@ -184,7 +199,7 @@
       <section id="dashboard" class="screen-content active space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <span class="text-xs font-medium text-slate-500">Invoiced Revenue</span>
+            <span class="text-xs font-medium text-slate-500">Invoiced Revenue (BDT)</span>
             <div id="kpi-sales" class="text-2xl font-bold text-emerald-600 mt-1">৳ 0.00</div>
           </div>
           <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
@@ -202,7 +217,7 @@
         </div>
 
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Material Inventory &amp; Stock Levels</h3>
+          <h3 class="text-base font-bold text-slate-800 mb-4">Live Material Inventory &amp; Stock Levels</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-sm text-left">
               <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
@@ -247,10 +262,10 @@
                 <thead class="bg-slate-50 text-slate-500 uppercase">
                   <tr>
                     <th class="p-2.5">Invoice #</th>
-                    <th class="p-2.5">Customer</th>
-                    <th class="p-2.5 text-right">Invoiced</th>
+                    <th class="p-2.5">Customer Name</th>
+                    <th class="p-2.5 text-right">Invoiced (BDT)</th>
                     <th class="p-2.5 text-right">Collected</th>
-                    <th class="p-2.5 text-right">Due (BDT)</th>
+                    <th class="p-2.5 text-right">Due Balance</th>
                   </tr>
                 </thead>
                 <tbody id="ar-ledger-body"></tbody>
@@ -264,10 +279,10 @@
                 <thead class="bg-slate-50 text-slate-500 uppercase">
                   <tr>
                     <th class="p-2.5">PO #</th>
-                    <th class="p-2.5">Supplier</th>
-                    <th class="p-2.5 text-right">PO Total</th>
+                    <th class="p-2.5">Supplier Name</th>
+                    <th class="p-2.5 text-right">Total (BDT)</th>
                     <th class="p-2.5 text-right">Paid</th>
-                    <th class="p-2.5 text-right">Due (BDT)</th>
+                    <th class="p-2.5 text-right">Due Balance</th>
                   </tr>
                 </thead>
                 <tbody id="ap-ledger-body"></tbody>
@@ -287,8 +302,8 @@
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Type</label>
               <select id="payment-type" onchange="togglePaymentTypeUI()" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
-                <option value="Customer Collection">Customer Collection (AR)</option>
-                <option value="Vendor Payment">Vendor Payment (AP)</option>
+                <option value="Customer Collection">Customer Collection (AR Receipt)</option>
+                <option value="Vendor Payment">Vendor Payment (AP Disbursement)</option>
               </select>
             </div>
             <div>
@@ -296,9 +311,9 @@
               <input type="date" id="payment-date" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Method</label>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Payment Mode</label>
               <select id="payment-method" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
-                <option value="Bank Transfer (EFTN)">Bank Transfer (EFTN)</option>
+                <option value="Bank Transfer (EFTN/RTGS)">Bank Transfer (EFTN/RTGS)</option>
                 <option value="Account Payee Cheque">Account Payee Cheque</option>
                 <option value="Cash Deposit">Cash Deposit</option>
               </select>
@@ -325,7 +340,7 @@
             </div>
           </div>
           <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg hover:bg-emerald-700 shadow">
-            Post Voucher &amp; Settle Balance
+            Post Financial Voucher &amp; Settle Balance
           </button>
         </form>
       </section>
@@ -366,6 +381,7 @@
       <section id="create-so" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-5xl">
         <div class="border-b pb-4 mb-6">
           <h3 class="text-base font-bold text-slate-800">Create Sales Order (VA01)</h3>
+          <p class="text-xs text-slate-500">Initiates customer commitment. Stock remains in warehouse until PGI is posted.</p>
         </div>
         <form onsubmit="handleCreateSO(event)" class="space-y-6">
           <div class="grid grid-cols-3 gap-4">
@@ -374,7 +390,7 @@
               <input type="text" id="so-number" readonly class="w-full bg-slate-100 border border-slate-300 rounded px-3 py-2 text-sm font-mono font-bold" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Date</label>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Document Date</label>
               <input type="date" id="so-date" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm" />
             </div>
             <div>
@@ -394,15 +410,15 @@
           </div>
           <div>
             <div class="flex justify-between items-center mb-2">
-              <label class="text-xs font-semibold text-slate-600 uppercase">Sales Items</label>
+              <label class="text-xs font-semibold text-slate-600 uppercase">Sales Line Items</label>
               <button type="button" onclick="addSOLineItem()" class="text-xs bg-slate-800 text-white px-3 py-1 rounded">+ Add Line</button>
             </div>
             <table class="w-full text-sm">
               <thead class="bg-slate-50 text-slate-500 text-xs">
                 <tr>
-                  <th class="p-2 text-left">Material</th>
+                  <th class="p-2 text-left">Material Description</th>
                   <th class="p-2 text-left w-20">UoM</th>
-                  <th class="p-2 text-left w-24">Stock</th>
+                  <th class="p-2 text-left w-24">Available</th>
                   <th class="p-2 text-left w-28">Price (BDT)</th>
                   <th class="p-2 text-left w-20">Qty</th>
                   <th class="p-2 text-left w-28">Total</th>
@@ -414,7 +430,7 @@
           </div>
           <div class="flex justify-between items-center border-t pt-4">
             <div class="text-lg font-bold">Total: <span id="so-grand-total" class="text-blue-600">৳ 0.00</span></div>
-            <button type="submit" class="bg-blue-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-blue-700">Save Sales Order</button>
+            <button type="submit" class="bg-blue-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-blue-700 shadow">Save Sales Order</button>
           </div>
         </form>
       </section>
@@ -422,11 +438,12 @@
       <!-- 2. OUTBOUND DELIVERY -->
       <section id="delivery-challan" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-4xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Outbound Delivery &amp; Goods Issue (PGI)</h3>
+          <h3 class="text-base font-bold text-slate-800">Outbound Delivery &amp; Goods Issue (VL01N)</h3>
+          <p class="text-xs text-slate-500">Post Goods Issue (PGI) deducts physical stock from inventory and generates the shipping Delivery Challan.</p>
         </div>
         <div class="flex gap-3 mb-6">
-          <input type="text" id="delivery-lookup-so" placeholder="Enter Open SO Number" class="border border-slate-300 rounded px-4 py-2 text-sm w-72" />
-          <button onclick="loadSOForDelivery()" class="bg-slate-800 text-white px-4 py-2 rounded text-sm hover:bg-slate-700">Load SO</button>
+          <input type="text" id="delivery-lookup-so" placeholder="Enter Open SO Number (e.g. 10008491)" class="border border-slate-300 rounded px-4 py-2 text-sm w-80" />
+          <button onclick="loadSOForDelivery()" class="bg-slate-800 text-white px-4 py-2 rounded text-sm hover:bg-slate-700 font-medium">Load SO for Delivery</button>
         </div>
         <div id="delivery-card" class="hidden border border-slate-200 rounded-lg p-6 bg-slate-50 space-y-4"></div>
       </section>
@@ -434,29 +451,33 @@
       <!-- 3. BILLING INVOICE -->
       <section id="billing-invoice" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-4xl">
         <div class="border-b pb-4 mb-6">
-          <h3 class="text-base font-bold text-slate-800">Billing &amp; Tax Invoice (VF01)</h3>
+          <h3 class="text-base font-bold text-slate-800">Billing &amp; Tax Invoice Creation (VF01)</h3>
+          <p class="text-xs text-slate-500">Create Tax Invoices with reference to the <b>Delivery Challan Number (`DEL-XXXXXX`)</b> or Sales Order.</p>
         </div>
         <div class="flex gap-3 mb-6">
-          <input type="text" id="billing-lookup-so" placeholder="Enter Delivered SO Number" class="border border-slate-300 rounded px-4 py-2 text-sm w-72" />
-          <button onclick="loadSOForBilling()" class="bg-slate-800 text-white px-4 py-2 rounded text-sm hover:bg-slate-700">Load for Billing</button>
+          <input type="text" id="billing-lookup-ref" placeholder="Enter Delivery Challan No. (e.g. DEL-900101) or SO No." class="border border-slate-300 rounded px-4 py-2 text-sm w-96" />
+          <button onclick="loadForBilling()" class="bg-slate-800 text-white px-4 py-2 rounded text-sm hover:bg-slate-700 font-medium">Load for Billing</button>
         </div>
         <div id="billing-card" class="hidden border border-slate-200 rounded-lg p-6 bg-slate-50 space-y-4"></div>
       </section>
 
       <!-- O2C REPORT -->
       <section id="so-report" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="border-b pb-4 mb-4">
+          <h3 class="text-base font-bold text-slate-800">Order-to-Cash Lifecycle Tracking Report</h3>
+        </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm text-left">
             <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
               <tr>
                 <th class="p-3">SO #</th>
                 <th class="p-3">Date</th>
-                <th class="p-3">Customer</th>
+                <th class="p-3">Customer Name</th>
                 <th class="p-3">Delivery Challan</th>
                 <th class="p-3">Invoice No.</th>
                 <th class="p-3">Total Value</th>
-                <th class="p-3">Lifecycle</th>
-                <th class="p-3 text-right">Print Actions</th>
+                <th class="p-3">Lifecycle Status</th>
+                <th class="p-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody id="so-report-table-body"></tbody>
@@ -466,6 +487,9 @@
 
       <!-- CREATE PO -->
       <section id="create-po" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-4xl">
+        <div class="border-b pb-4 mb-6">
+          <h3 class="text-base font-bold text-slate-800">Create Purchase Order (ME21N)</h3>
+        </div>
         <form onsubmit="handleCreatePO(event)" class="space-y-6">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -473,7 +497,7 @@
               <input type="text" id="po-number" readonly class="w-full bg-slate-100 border border-slate-300 rounded px-3 py-2 text-sm font-mono font-bold" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Supplier Code</label>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Supplier Code &amp; Name</label>
               <select id="po-supplier-code" class="w-full border border-slate-300 rounded px-3 py-2 text-sm" required></select>
             </div>
           </div>
@@ -485,7 +509,7 @@
             <table class="w-full text-sm">
               <thead class="bg-slate-50 text-slate-500 text-xs">
                 <tr>
-                  <th class="p-2 text-left">Material</th>
+                  <th class="p-2 text-left">Material Description</th>
                   <th class="p-2 text-left w-20">UoM</th>
                   <th class="p-2 text-left w-28">Cost (BDT)</th>
                   <th class="p-2 text-left w-24">Qty</th>
@@ -498,31 +522,37 @@
           </div>
           <div class="flex justify-between items-center border-t pt-4">
             <div class="text-lg font-bold">Total: <span id="po-grand-total" class="text-blue-600">৳ 0.00</span></div>
-            <button type="submit" class="bg-blue-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-blue-700">Issue PO</button>
+            <button type="submit" class="bg-blue-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-blue-700 shadow">Issue Purchase Order</button>
           </div>
         </form>
       </section>
 
       <!-- GOODS RECEIPT (GRN) -->
       <section id="grn-receipt" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-3xl">
+        <div class="border-b pb-4 mb-6">
+          <h3 class="text-base font-bold text-slate-800">Goods Receipt Posting (MIGO)</h3>
+        </div>
         <div class="flex gap-3 mb-6">
-          <input type="text" id="grn-lookup-po" placeholder="Enter Issued PO Number" class="border border-slate-300 rounded px-4 py-2 text-sm w-72" />
-          <button onclick="loadPOForGRN()" class="bg-slate-800 text-white px-4 py-2 rounded text-sm hover:bg-slate-700">Find PO</button>
+          <input type="text" id="grn-lookup-po" placeholder="Enter Issued PO Number (e.g. 80001001)" class="border border-slate-300 rounded px-4 py-2 text-sm w-72" />
+          <button onclick="loadPOForGRN()" class="bg-slate-800 text-white px-4 py-2 rounded text-sm hover:bg-slate-700 font-medium">Find PO</button>
         </div>
         <div id="grn-details-card" class="hidden border border-slate-200 rounded-lg p-6 bg-slate-50 space-y-4"></div>
       </section>
 
       <!-- PO REPORT -->
       <section id="po-report" class="screen-content bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="border-b pb-4 mb-4">
+          <h3 class="text-base font-bold text-slate-800">Purchase Orders Status Report</h3>
+        </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm text-left">
             <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
               <tr>
                 <th class="p-3">PO Number</th>
-                <th class="p-3">Supplier</th>
+                <th class="p-3">Supplier Name</th>
                 <th class="p-3">Status</th>
                 <th class="p-3">Total Cost (BDT)</th>
-                <th class="p-3 text-right">Print Actions</th>
+                <th class="p-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody id="po-report-table-body"></tbody>
@@ -533,14 +563,14 @@
       <!-- CUSTOMER MASTER -->
       <section id="customer-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Add / Edit Customer</h3>
+          <h3 id="cust-form-title" class="text-base font-bold text-slate-800 mb-4">Add / Edit Customer Record (XD01)</h3>
           <form onsubmit="handleSaveCustomer(event)" class="grid grid-cols-1 md:grid-cols-6 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Code</label>
               <input type="text" id="cust-code" placeholder="CUST-1004" required class="w-full border border-slate-300 rounded px-2.5 py-2 text-sm font-mono" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Name</label>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Customer Name</label>
               <input type="text" id="cust-name" required class="w-full border border-slate-300 rounded px-2.5 py-2 text-sm" />
             </div>
             <div>
@@ -559,40 +589,43 @@
               <label class="block text-xs font-semibold text-slate-600 mb-1">Terms</label>
               <div class="flex gap-2">
                 <input type="text" id="cust-terms" placeholder="Net 30" required class="w-24 border border-slate-300 rounded px-2 py-2 text-sm" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700">Save</button>
+                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
               </div>
             </div>
           </form>
         </div>
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <h3 class="text-base font-bold text-slate-800 mb-4">Customer Directory</h3>
-          <table class="w-full text-sm text-left">
-            <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
-              <tr>
-                <th class="p-3">Code</th>
-                <th class="p-3">Name</th>
-                <th class="p-3">Phone</th>
-                <th class="p-3">Email</th>
-                <th class="p-3">Address</th>
-                <th class="p-3">Terms</th>
-              </tr>
-            </thead>
-            <tbody id="customer-table-body"></tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                <tr>
+                  <th class="p-3">Code</th>
+                  <th class="p-3">Customer Name</th>
+                  <th class="p-3">Phone</th>
+                  <th class="p-3">Email</th>
+                  <th class="p-3">Address</th>
+                  <th class="p-3">Terms</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="customer-table-body"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <!-- SUPPLIER MASTER -->
       <section id="supplier-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Add / Edit Supplier</h3>
+          <h3 class="text-base font-bold text-slate-800 mb-4">Add / Edit Supplier Record (XK01)</h3>
           <form onsubmit="handleSaveSupplier(event)" class="grid grid-cols-1 md:grid-cols-6 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Code</label>
               <input type="text" id="sup-code" placeholder="SUP-204" required class="w-full border border-slate-300 rounded px-2.5 py-2 text-sm font-mono" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Name</label>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Supplier Name</label>
               <input type="text" id="sup-name" required class="w-full border border-slate-300 rounded px-2.5 py-2 text-sm" />
             </div>
             <div>
@@ -611,33 +644,36 @@
               <label class="block text-xs font-semibold text-slate-600 mb-1">Lead Time</label>
               <div class="flex gap-2">
                 <input type="text" id="sup-lead" placeholder="5 Days" required class="w-24 border border-slate-300 rounded px-2 py-2 text-sm" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700">Save</button>
+                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
               </div>
             </div>
           </form>
         </div>
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <h3 class="text-base font-bold text-slate-800 mb-4">Supplier Directory</h3>
-          <table class="w-full text-sm text-left">
-            <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
-              <tr>
-                <th class="p-3">Code</th>
-                <th class="p-3">Name</th>
-                <th class="p-3">Phone</th>
-                <th class="p-3">Email</th>
-                <th class="p-3">Address</th>
-                <th class="p-3">Lead</th>
-              </tr>
-            </thead>
-            <tbody id="supplier-table-body"></tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                <tr>
+                  <th class="p-3">Code</th>
+                  <th class="p-3">Supplier Name</th>
+                  <th class="p-3">Phone</th>
+                  <th class="p-3">Email</th>
+                  <th class="p-3">Address</th>
+                  <th class="p-3">Lead Time</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="supplier-table-body"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <!-- MATERIAL MASTER -->
       <section id="material-master" class="screen-content space-y-6">
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Add Material Record &amp; Base UoM</h3>
+          <h3 class="text-base font-bold text-slate-800 mb-4">Add Material Record &amp; Base UoM (MM01)</h3>
           <form onsubmit="handleSaveMaterial(event)" class="grid grid-cols-1 md:grid-cols-7 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Code</label>
@@ -671,27 +707,81 @@
               <div class="flex gap-2">
                 <input type="number" id="mat-stock" placeholder="Stock" required class="w-1/2 border border-slate-300 rounded px-2 py-2 text-sm" />
                 <input type="number" id="mat-reorder" placeholder="Min" required class="w-1/2 border border-slate-300 rounded px-2 py-2 text-sm" />
-                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700">Save</button>
+                <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 shadow">Save</button>
               </div>
             </div>
           </form>
         </div>
         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 class="text-base font-bold text-slate-800 mb-4">Material Catalog</h3>
-          <table class="w-full text-sm text-left">
-            <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
-              <tr>
-                <th class="p-3">Code</th>
-                <th class="p-3">Description</th>
-                <th class="p-3">UoM</th>
-                <th class="p-3">Price</th>
-                <th class="p-3">Cost</th>
-                <th class="p-3">Stock</th>
-                <th class="p-3">Min</th>
-              </tr>
-            </thead>
-            <tbody id="material-table-body"></tbody>
-          </table>
+          <h3 class="text-base font-bold text-slate-800 mb-4">Material Catalog &amp; UoM Inventory</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                <tr>
+                  <th class="p-3">Code</th>
+                  <th class="p-3">Description</th>
+                  <th class="p-3">UoM</th>
+                  <th class="p-3">Selling Price</th>
+                  <th class="p-3">Cost Price</th>
+                  <th class="p-3">Stock on Hand</th>
+                  <th class="p-3">Reorder Point</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="material-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- USER MANAGEMENT (SU01) -->
+      <section id="user-management" class="screen-content space-y-6">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-slate-800 mb-4">User Registration &amp; Role Authorization (SU01)</h3>
+          <form onsubmit="handleSaveUser(event)" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">User ID / Username</label>
+              <input type="text" id="user-id-input" placeholder="e.g. jdoe" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name</label>
+              <input type="text" id="user-fullname" placeholder="John Doe" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
+              <input type="password" id="user-pass" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Role</label>
+              <select id="user-role" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
+                <option value="Admin">Admin (Full Access)</option>
+                <option value="Sales Executive">Sales Executive</option>
+                <option value="Procurement Officer">Procurement Officer</option>
+                <option value="Accounts / Finance">Accounts / Finance</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">&nbsp;</label>
+              <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow">Save User</button>
+            </div>
+          </form>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-slate-800 mb-4">System User Directory</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                <tr>
+                  <th class="p-3">User ID</th>
+                  <th class="p-3">Full Name</th>
+                  <th class="p-3">Role</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="user-table-body"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </div>
@@ -699,17 +789,21 @@
 
   <!-- JAVASCRIPT GLOBAL RUNTIME -->
   <script>
-    // State Store
+    // State Store with Enriched Seed Data
     window.customers = [
       { code: 'CUST-1001', name: 'Apex Retail Ltd', phone: '+880 1711-234567', email: 'orders@apexretail.com', address: 'Plot 12, Gulshan-2, Dhaka', terms: 'Net 30' },
-      { code: 'CUST-1002', name: 'Nova Logistics Corp', phone: '+880 1819-876543', email: 'procure@novalog.com', address: 'Agrabad C/A, Chittagong', terms: 'Net 45' }
+      { code: 'CUST-1002', name: 'Nova Logistics Corp', phone: '+880 1819-876543', email: 'procure@novalog.com', address: 'Agrabad Commercial Area, Chittagong', terms: 'Net 45' },
+      { code: 'CUST-1003', name: 'Vertex Global Supplies', phone: '+880 1912-345678', email: 'supply@vertex.com', address: 'Sector 3, Uttara, Dhaka', terms: 'Net 30' }
     ];
     window.suppliers = [
-      { code: 'SUP-201', name: 'Silicon Dynamics Ltd', phone: '+880 1722-334455', email: 'sales@silicondyn.com', address: 'Tejgaon I/A, Dhaka', lead: '5 Days' }
+      { code: 'SUP-201', name: 'Silicon Dynamics Ltd', phone: '+880 1722-334455', email: 'sales@silicondyn.com', address: 'Tejgaon I/A, Dhaka-1208', lead: '5 Days' },
+      { code: 'SUP-202', name: 'EnerCell Power Corp', phone: '+880 1833-445566', email: 'rep@enercell.com', address: 'Mohakhali C/A, Dhaka', lead: '3 Days' }
     ];
     window.materials = [
       { code: 'MAT-501', desc: 'Microcontroller Unit', uom: 'PCS', price: 12500, cost: 8200, stock: 22, reorder: 40 },
-      { code: 'MAT-502', desc: 'Lithium Cell Module', uom: 'SET', price: 4800, cost: 3100, stock: 150, reorder: 80 }
+      { code: 'MAT-502', desc: 'Lithium Cell Module', uom: 'SET', price: 4800, cost: 3100, stock: 150, reorder: 80 },
+      { code: 'MAT-503', desc: 'Heavy Duty Chassis', uom: 'PCS', price: 34000, cost: 21500, stock: 12, reorder: 20 },
+      { code: 'MAT-504', desc: 'Optical Sensor Assembly', uom: 'BOX', price: 9200, cost: 5600, stock: 90, reorder: 40 }
     ];
     window.salesOrders = [
       { id: '10008491', date: '2026-08-15', custCode: 'CUST-1001', status: 'Invoiced', deliveryId: 'DEL-900101', deliveryDate: '2026-08-16', invoiceId: 'INV-700101', invoiceDate: '2026-08-16', items: [{ matCode: 'MAT-501', uom: 'PCS', qty: 5, price: 12500 }], total: 62500, collected: 20000 }
@@ -718,7 +812,12 @@
       { id: '80001001', date: '2026-08-16', supCode: 'SUP-201', status: 'Completed', items: [{ matCode: 'MAT-501', uom: 'PCS', qty: 30, cost: 8200 }], total: 246000, paid: 100000 }
     ];
     window.paymentVouchers = [];
-    window.users = [{ id: 'admin', name: 'System Administrator', pass: 'admin123', role: 'Admin' }];
+    window.users = [
+      { id: 'admin', name: 'System Administrator', pass: 'admin123', role: 'Admin', status: 'Active' },
+      { id: 'sales01', name: 'Karim Ahmed', pass: 'pass123', role: 'Sales Executive', status: 'Active' },
+      { id: 'buyer01', name: 'Nusrat Jahan', pass: 'pass123', role: 'Procurement Officer', status: 'Active' },
+      { id: 'accts01', name: 'Tanvir Hossain', pass: 'pass123', role: 'Accounts / Finance', status: 'Active' }
+    ];
     window.currentUser = null;
 
     window.notify = function(msg) {
@@ -736,6 +835,11 @@
 
       if (!user) {
         document.getElementById('login-error').innerText = "Invalid credentials! Use admin / admin123";
+        document.getElementById('login-error').classList.remove('hidden');
+        return;
+      }
+      if (user.status === 'Locked') {
+        document.getElementById('login-error').innerText = "Account is locked. Contact admin.";
         document.getElementById('login-error').classList.remove('hidden');
         return;
       }
@@ -774,6 +878,35 @@
       window.refreshViews();
     };
 
+    // User Management
+    window.handleSaveUser = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('user-id-input').value.trim().toLowerCase();
+      const name = document.getElementById('user-fullname').value.trim();
+      const pass = document.getElementById('user-pass').value;
+      const role = document.getElementById('user-role').value;
+      
+      const idx = window.users.findIndex(u => u.id === id);
+      if (idx !== -1) {
+        window.users[idx] = { id, name, pass, role, status: 'Active' };
+        window.notify(`User ${id} updated.`);
+      } else {
+        window.users.push({ id, name, pass, role, status: 'Active' });
+        window.notify(`User ${id} created.`);
+      }
+      window.refreshViews();
+    };
+
+    window.toggleUser = function(id) {
+      if (id === 'admin') return alert('Cannot lock super-admin account!');
+      const u = window.users.find(x => x.id === id);
+      if (u) {
+        u.status = u.status === 'Active' ? 'Locked' : 'Active';
+        window.refreshViews();
+      }
+    };
+
+    // Create Sales Order (VA01)
     function initCreateSO() {
       document.getElementById('so-number').value = '1000' + Math.floor(1000 + Math.random() * 9000);
       document.getElementById('so-date').value = new Date().toISOString().split('T')[0];
@@ -859,40 +992,52 @@
       if (items.length === 0) return alert('Please add at least one line item.');
 
       const soPayload = { id, date, custCode, status: 'Open', deliveryId: null, deliveryDate: null, invoiceId: null, invoiceDate: null, items, total: grand, collected: 0 };
-      
-      if (window.fs && window.db) {
-        await window.fs.setDoc(window.fs.doc(window.db, "salesOrders", id), soPayload);
-      } else {
-        window.salesOrders.push(soPayload);
-      }
-      window.notify(`Sales Order #${id} created!`);
+      window.salesOrders.push(soPayload);
+      window.notify(`Sales Order #${id} created successfully!`);
       window.switchTab('so-report');
     };
 
+    // Outbound Delivery & PGI (VL01N)
     window.loadSOForDelivery = function() {
       const soNum = document.getElementById('delivery-lookup-so').value.trim();
       const so = window.salesOrders.find(s => s.id === soNum && s.status === 'Open');
       const card = document.getElementById('delivery-card');
-      if (!so) return alert('Open SO not found!');
+      if (!so) return alert('Open Sales Order not found!');
+      
+      const cust = window.customers.find(c => c.code === so.custCode);
       card.innerHTML = `
         <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-slate-800">Dispatch Order #${so.id} (${so.custCode})</h4>
+          <div>
+            <h4 class="font-bold text-slate-800">Dispatch Order #${so.id} - ${cust ? cust.name : so.custCode}</h4>
+            <p class="text-xs text-slate-500">Shipping Address: ${cust ? cust.address : 'N/A'}</p>
+          </div>
           <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Ready for PGI</span>
         </div>
-        <button onclick="postGoodsIssue('${so.id}')" class="w-full bg-emerald-600 text-white font-medium py-2 rounded-lg hover:bg-emerald-700 mt-3">
-          Execute Post Goods Issue (PGI) &amp; Deduct Stock
+        <table class="w-full text-xs text-left my-2">
+          <thead class="bg-slate-200 text-slate-700">
+            <tr><th class="p-2">Material Description</th><th class="p-2">UoM</th><th class="p-2 text-right">Order Qty</th><th class="p-2 text-right">Warehouse Stock</th></tr>
+          </thead>
+          <tbody>
+            ${so.items.map(i => {
+              const m = window.materials.find(x => x.code === i.matCode);
+              return `<tr class="border-b"><td class="p-2 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right font-bold">${i.qty}</td><td class="p-2 text-right font-mono">${m ? m.stock : 0}</td></tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+        <button onclick="postGoodsIssue('${so.id}')" class="w-full bg-emerald-600 text-white font-medium py-2 rounded-lg hover:bg-emerald-700 shadow">
+          Post Goods Issue (PGI) &amp; Issue Delivery Challan
         </button>
       `;
       card.classList.remove('hidden');
     };
 
-    window.postGoodsIssue = async function(soId) {
+    window.postGoodsIssue = function(soId) {
       const so = window.salesOrders.find(s => s.id === soId);
       if (!so) return;
 
       for (const item of so.items) {
         const mat = window.materials.find(m => m.code === item.matCode);
-        if (!mat || mat.stock < item.qty) return alert(`Insufficient stock for ${item.matCode}! Available: ${mat ? mat.stock : 0}`);
+        if (!mat || mat.stock < item.qty) return alert(`Insufficient warehouse stock for ${item.matCode}! Available: ${mat ? mat.stock : 0}`);
       }
 
       so.items.forEach(item => {
@@ -905,37 +1050,47 @@
       so.deliveryId = delId;
       so.deliveryDate = new Date().toISOString().split('T')[0];
 
-      if (window.fs && window.db) {
-        await window.fs.setDoc(window.fs.doc(window.db, "salesOrders", soId), so);
-        for (const item of so.items) {
-          const mat = window.materials.find(m => m.code === item.matCode);
-          await window.fs.setDoc(window.fs.doc(window.db, "materials", mat.code), mat);
-        }
-      }
-
-      window.notify(`PGI Posted! Delivery Challan #${delId} generated.`);
+      window.notify(`PGI Posted! Delivery Challan #${delId} generated and stock deducted.`);
       document.getElementById('delivery-card').classList.add('hidden');
       window.switchTab('so-report');
     };
 
-    window.loadSOForBilling = function() {
-      const soNum = document.getElementById('billing-lookup-so').value.trim();
-      const so = window.salesOrders.find(s => s.id === soNum && s.status === 'Delivered');
+    // Billing & Invoicing (VF01)
+    window.loadForBilling = function() {
+      const ref = document.getElementById('billing-lookup-ref').value.trim();
+      const so = window.salesOrders.find(s => (s.id === ref || s.deliveryId === ref) && s.status === 'Delivered');
       const card = document.getElementById('billing-card');
-      if (!so) return alert('Delivered SO not found!');
+      if (!so) return alert('Delivered order or active delivery challan not found!');
+
+      const cust = window.customers.find(c => c.code === so.custCode);
       card.innerHTML = `
         <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-slate-800">Generate Tax Invoice for SO #${so.id}</h4>
+          <div>
+            <h4 class="font-bold text-slate-800">Generate Tax Invoice</h4>
+            <p class="text-xs text-slate-500">Ref: Delivery Challan <b>${so.deliveryId}</b> | SO #${so.id} | Customer: ${cust ? cust.name : so.custCode}</p>
+          </div>
           <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">Billing Due</span>
         </div>
-        <button onclick="createInvoice('${so.id}')" class="w-full bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 mt-3">
-          Create &amp; Release Billing Invoice
+        <table class="w-full text-xs text-left my-2">
+          <thead class="bg-slate-200 text-slate-700">
+            <tr><th class="p-2">Material Description</th><th class="p-2">UoM</th><th class="p-2 text-right">Invoiced Qty</th><th class="p-2 text-right">Rate</th><th class="p-2 text-right">Total</th></tr>
+          </thead>
+          <tbody>
+            ${so.items.map(i => {
+              const m = window.materials.find(x => x.code === i.matCode);
+              return `<tr class="border-b"><td class="p-2">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right">${i.qty}</td><td class="p-2 text-right">৳ ${i.price.toLocaleString()}</td><td class="p-2 text-right font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+        <div class="text-right font-black text-blue-900 my-2">Total Net Amount: ৳ ${so.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+        <button onclick="createInvoice('${so.id}')" class="w-full bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 shadow">
+          Create &amp; Release Tax Billing Invoice
         </button>
       `;
       card.classList.remove('hidden');
     };
 
-    window.createInvoice = async function(soId) {
+    window.createInvoice = function(soId) {
       const so = window.salesOrders.find(s => s.id === soId);
       if (!so) return;
       const invId = `INV-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -943,16 +1098,12 @@
       so.invoiceId = invId;
       so.invoiceDate = new Date().toISOString().split('T')[0];
 
-      if (window.fs && window.db) {
-        await window.fs.setDoc(window.fs.doc(window.db, "salesOrders", soId), so);
-      }
-
-      window.notify(`Tax Invoice #${invId} created & posted to Accounts Receivable!`);
+      window.notify(`Tax Invoice #${invId} generated and posted to Accounts Receivable!`);
       document.getElementById('billing-card').classList.add('hidden');
       window.switchTab('so-report');
     };
 
-    // Financial Collections
+    // Financial Collections & Payments
     function initPostPayment() {
       document.getElementById('payment-date').value = new Date().toISOString().split('T')[0];
       window.togglePaymentTypeUI();
@@ -967,15 +1118,17 @@
         lbl.innerText = 'Select Open Invoiced Sales Order';
         const openInvoices = window.salesOrders.filter(so => so.status === 'Invoiced' && ((so.collected || 0) < so.total));
         refSelect.innerHTML = '<option value="">Select Invoice</option>' + openInvoices.map(so => {
+          const cust = window.customers.find(c => c.code === so.custCode);
           const due = so.total - (so.collected || 0);
-          return `<option value="${so.id}">Invoice #${so.invoiceId} (SO #${so.id}) - Due: ৳ ${due.toLocaleString()}</option>`;
+          return `<option value="${so.id}">Invoice #${so.invoiceId} (${cust ? cust.name : so.custCode}) - Due: ৳ ${due.toLocaleString()}</option>`;
         }).join('');
       } else {
         lbl.innerText = 'Select Completed Purchase Order';
         const openPOs = window.purchaseOrders.filter(po => po.status === 'Completed' && ((po.paid || 0) < po.total));
         refSelect.innerHTML = '<option value="">Select PO</option>' + openPOs.map(po => {
+          const sup = window.suppliers.find(s => s.code === po.supCode);
           const due = po.total - (po.paid || 0);
-          return `<option value="${po.id}">PO #${po.id} - Due: ৳ ${due.toLocaleString()}</option>`;
+          return `<option value="${po.id}">PO #${po.id} (${sup ? sup.name : po.supCode}) - Due: ৳ ${due.toLocaleString()}</option>`;
         }).join('');
       }
       window.autoFillDocDue();
@@ -998,7 +1151,7 @@
       }
     };
 
-    window.handlePostPayment = async function(e) {
+    window.handlePostPayment = function(e) {
       e.preventDefault();
       const type = document.getElementById('payment-type').value;
       const docId = document.getElementById('payment-doc-ref').value;
@@ -1010,19 +1163,17 @@
       if (type === 'Customer Collection') {
         const so = window.salesOrders.find(s => s.id === docId);
         so.collected = (so.collected || 0) + amount;
-        if (window.fs && window.db) await window.fs.setDoc(window.fs.doc(window.db, "salesOrders", docId), so);
       } else {
         const po = window.purchaseOrders.find(p => p.id === docId);
         po.paid = (po.paid || 0) + amount;
-        if (window.fs && window.db) await window.fs.setDoc(window.fs.doc(window.db, "purchaseOrders", docId), po);
       }
 
       window.notify(`Payment Voucher #${vchId} posted successfully.`);
       window.switchTab('finance-visibility');
     };
 
-    // Master Saves
-    window.handleSaveCustomer = async function(e) {
+    // Master Records
+    window.handleSaveCustomer = function(e) {
       e.preventDefault();
       const code = document.getElementById('cust-code').value.trim().toUpperCase();
       const payload = {
@@ -1035,12 +1186,11 @@
       };
       const idx = window.customers.findIndex(c => c.code === code);
       if (idx !== -1) window.customers[idx] = payload; else window.customers.push(payload);
-      if (window.fs && window.db) await window.fs.setDoc(window.fs.doc(window.db, "customers", code), payload);
       window.notify(`Customer ${code} saved.`);
       window.refreshViews();
     };
 
-    window.handleSaveSupplier = async function(e) {
+    window.handleSaveSupplier = function(e) {
       e.preventDefault();
       const code = document.getElementById('sup-code').value.trim().toUpperCase();
       const payload = {
@@ -1053,12 +1203,11 @@
       };
       const idx = window.suppliers.findIndex(s => s.code === code);
       if (idx !== -1) window.suppliers[idx] = payload; else window.suppliers.push(payload);
-      if (window.fs && window.db) await window.fs.setDoc(window.fs.doc(window.db, "suppliers", code), payload);
       window.notify(`Supplier ${code} saved.`);
       window.refreshViews();
     };
 
-    window.handleSaveMaterial = async function(e) {
+    window.handleSaveMaterial = function(e) {
       e.preventDefault();
       const code = document.getElementById('mat-code').value.trim().toUpperCase();
       const payload = {
@@ -1072,12 +1221,11 @@
       };
       const idx = window.materials.findIndex(m => m.code === code);
       if (idx !== -1) window.materials[idx] = payload; else window.materials.push(payload);
-      if (window.fs && window.db) await window.fs.setDoc(window.fs.doc(window.db, "materials", code), payload);
       window.notify(`Material ${code} saved.`);
       window.refreshViews();
     };
 
-    // Purchase Order & GRN
+    // Purchase & GRN
     function initCreatePO() {
       document.getElementById('po-number').value = '8000' + Math.floor(1000 + Math.random() * 9000);
       const sel = document.getElementById('po-supplier-code');
@@ -1127,7 +1275,7 @@
       document.getElementById('po-grand-total').innerText = `৳ ${grand.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
     };
 
-    window.handleCreatePO = async function(e) {
+    window.handleCreatePO = function(e) {
       e.preventDefault();
       const id = document.getElementById('po-number').value;
       const supCode = document.getElementById('po-supplier-code').value;
@@ -1143,9 +1291,7 @@
           grand += cost * qty;
         }
       });
-      const poPayload = { id, date: new Date().toISOString().split('T')[0], supCode, status: 'Issued', items, total: grand, paid: 0 };
-      if (window.fs && window.db) await window.fs.setDoc(window.fs.doc(window.db, "purchaseOrders", id), poPayload);
-      else window.purchaseOrders.push(poPayload);
+      window.purchaseOrders.push({ id, date: new Date().toISOString().split('T')[0], supCode, status: 'Issued', items, total: grand, paid: 0 });
       window.notify(`PO #${id} issued.`);
       window.switchTab('po-report');
     };
@@ -1155,16 +1301,17 @@
       const po = window.purchaseOrders.find(p => p.id === poNum && p.status === 'Issued');
       const card = document.getElementById('grn-details-card');
       if (!po) return alert('Issued PO not found!');
+      const sup = window.suppliers.find(s => s.code === po.supCode);
       card.innerHTML = `
-        <h4 class="font-bold text-slate-800">Receive Goods for PO #${po.id} (${po.supCode})</h4>
-        <button onclick="postGoodsReceipt('${po.id}')" class="w-full bg-emerald-600 text-white font-medium py-2 rounded-lg hover:bg-emerald-700 mt-2">
-          Post Goods Receipt (GRN) &amp; Add Stock
+        <h4 class="font-bold text-slate-800">Receive Materials for PO #${po.id} (${sup ? sup.name : po.supCode})</h4>
+        <button onclick="postGoodsReceipt('${po.id}')" class="w-full bg-emerald-600 text-white font-medium py-2 rounded-lg hover:bg-emerald-700 mt-2 shadow">
+          Post Goods Receipt (MIGO) &amp; Replenish Stock
         </button>
       `;
       card.classList.remove('hidden');
     };
 
-    window.postGoodsReceipt = async function(poId) {
+    window.postGoodsReceipt = function(poId) {
       const po = window.purchaseOrders.find(p => p.id === poId);
       if (!po) return;
       po.items.forEach(item => {
@@ -1172,19 +1319,12 @@
         if (mat) mat.stock += item.qty;
       });
       po.status = 'Completed';
-      if (window.fs && window.db) {
-        await window.fs.setDoc(window.fs.doc(window.db, "purchaseOrders", poId), po);
-        for (const item of po.items) {
-          const mat = window.materials.find(m => m.code === item.matCode);
-          await window.fs.setDoc(window.fs.doc(window.db, "materials", mat.code), mat);
-        }
-      }
-      window.notify(`GRN posted! Material restocked.`);
+      window.notify(`GRN posted! Material stock updated & posted to AP.`);
       document.getElementById('grn-details-card').classList.add('hidden');
       window.switchTab('material-master');
     };
 
-    // Refresh & Calculations
+    // Real-Time Views & Calculations
     window.refreshViews = function() {
       const invoicedOrders = window.salesOrders.filter(o => o.status === 'Invoiced');
       const totalRevenue = invoicedOrders.reduce((sum, o) => sum + o.total, 0);
@@ -1224,11 +1364,11 @@
       document.getElementById('pnl-gross-profit').innerText = `৳ ${grossProfit.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
       document.getElementById('pnl-net-profit').innerText = `৳ ${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
-      // Tables
+      // Dashboard Stock Table
       document.getElementById('dashboard-stock-table').innerHTML = window.materials.map(m => `
         <tr class="border-b">
           <td class="p-3 font-mono font-bold">${m.code}</td>
-          <td class="p-3">${m.desc}</td>
+          <td class="p-3 font-semibold">${m.desc}</td>
           <td class="p-3 font-bold">${m.uom}</td>
           <td class="p-3 font-mono font-bold ${m.stock <= m.reorder ? 'text-red-600' : 'text-slate-800'}">${m.stock}</td>
           <td class="p-3 font-mono">${m.reorder}</td>
@@ -1237,56 +1377,132 @@
         </tr>
       `).join('');
 
+      // Master Tables
       document.getElementById('customer-table-body').innerHTML = window.customers.map(c => `
-        <tr class="border-b"><td class="p-3 font-mono font-bold">${c.code}</td><td class="p-3">${c.name}</td><td class="p-3">${c.phone}</td><td class="p-3">${c.email}</td><td class="p-3">${c.address}</td><td class="p-3">${c.terms}</td></tr>
+        <tr class="border-b"><td class="p-3 font-mono font-bold">${c.code}</td><td class="p-3 font-semibold">${c.name}</td><td class="p-3 font-mono text-xs">${c.phone}</td><td class="p-3 text-xs">${c.email}</td><td class="p-3 text-xs text-slate-600">${c.address}</td><td class="p-3 font-semibold">${c.terms}</td><td class="p-3 text-right"><button class="text-xs text-blue-600 hover:underline">Edit</button></td></tr>
       `).join('');
 
       document.getElementById('supplier-table-body').innerHTML = window.suppliers.map(s => `
-        <tr class="border-b"><td class="p-3 font-mono font-bold">${s.code}</td><td class="p-3">${s.name}</td><td class="p-3">${s.phone}</td><td class="p-3">${s.email}</td><td class="p-3">${s.address}</td><td class="p-3">${s.lead}</td></tr>
+        <tr class="border-b"><td class="p-3 font-mono font-bold">${s.code}</td><td class="p-3 font-semibold">${s.name}</td><td class="p-3 font-mono text-xs">${s.phone}</td><td class="p-3 text-xs">${s.email}</td><td class="p-3 text-xs text-slate-600">${s.address}</td><td class="p-3 font-semibold">${s.lead}</td><td class="p-3 text-right"><button class="text-xs text-blue-600 hover:underline">Edit</button></td></tr>
       `).join('');
 
       document.getElementById('material-table-body').innerHTML = window.materials.map(m => `
-        <tr class="border-b"><td class="p-3 font-mono font-bold">${m.code}</td><td class="p-3">${m.desc}</td><td class="p-3 font-bold">${m.uom}</td><td class="p-3 font-mono">৳ ${m.price}</td><td class="p-3 font-mono">৳ ${m.cost}</td><td class="p-3 font-mono font-bold">${m.stock}</td><td class="p-3 font-mono">${m.reorder}</td></tr>
+        <tr class="border-b"><td class="p-3 font-mono font-bold">${m.code}</td><td class="p-3 font-semibold">${m.desc}</td><td class="p-3 font-bold">${m.uom}</td><td class="p-3 font-mono">৳ ${m.price.toLocaleString()}</td><td class="p-3 font-mono">৳ ${m.cost.toLocaleString()}</td><td class="p-3 font-mono font-bold">${m.stock}</td><td class="p-3 font-mono">${m.reorder}</td><td class="p-3 text-right"><button class="text-xs text-blue-600 hover:underline">Edit</button></td></tr>
       `).join('');
 
-      document.getElementById('so-report-table-body').innerHTML = window.salesOrders.map(so => `
+      // User Directory Table
+      document.getElementById('user-table-body').innerHTML = window.users.map(u => `
         <tr class="border-b">
-          <td class="p-3 font-mono font-bold">${so.id}</td>
-          <td class="p-3">${so.date}</td>
-          <td class="p-3">${so.custCode}</td>
-          <td class="p-3 font-mono text-xs">${so.deliveryId || 'Pending'}</td>
-          <td class="p-3 font-mono text-xs">${so.invoiceId || 'Pending'}</td>
-          <td class="p-3 font-mono font-bold">৳ ${so.total.toLocaleString()}</td>
-          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-semibold ${so.status === 'Invoiced' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}">${so.status}</span></td>
+          <td class="p-3 font-mono font-bold">${u.id}</td>
+          <td class="p-3 font-semibold">${u.name}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 border">${u.role}</span></td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${u.status}</span></td>
           <td class="p-3 text-right">
-            ${so.deliveryId ? `<button onclick="printDeliveryChallan('${so.id}')" class="text-xs bg-amber-50 text-amber-700 px-2 py-1 rounded border border-amber-300 mr-1">Challan</button>` : ''}
-            ${so.invoiceId ? `<button onclick="printBillingInvoice('${so.id}')" class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded border border-blue-300">Invoice</button>` : ''}
+            <button onclick="toggleUser('${u.id}')" class="text-xs text-slate-600 hover:underline">${u.status === 'Active' ? 'Lock Account' : 'Unlock'}</button>
           </td>
         </tr>
       `).join('');
 
-      document.getElementById('ar-ledger-body').innerHTML = invoicedOrders.map(so => `
-        <tr class="border-b"><td class="p-2.5 font-mono">${so.invoiceId}</td><td class="p-2.5">${so.custCode}</td><td class="p-2.5 text-right font-mono">৳ ${so.total.toLocaleString()}</td><td class="p-2.5 text-right font-mono text-emerald-600">৳ ${(so.collected || 0).toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold text-blue-600">৳ ${(so.total - (so.collected || 0)).toLocaleString()}</td></tr>
-      `).join('');
+      // Enriched O2C Lifecycle Report
+      document.getElementById('so-report-table-body').innerHTML = window.salesOrders.map(so => {
+        const cust = window.customers.find(c => c.code === so.custCode);
+        return `
+          <tr class="border-b">
+            <td class="p-3 font-mono font-bold">${so.id}</td>
+            <td class="p-3">${so.date}</td>
+            <td class="p-3 font-semibold text-slate-900">${cust ? cust.name : so.custCode}</td>
+            <td class="p-3 font-mono text-xs font-bold ${so.deliveryId ? 'text-blue-600' : 'text-slate-400'}">${so.deliveryId || 'Pending PGI'}</td>
+            <td class="p-3 font-mono text-xs font-bold ${so.invoiceId ? 'text-emerald-600' : 'text-slate-400'}">${so.invoiceId || 'Pending Billing'}</td>
+            <td class="p-3 font-mono font-bold">৳ ${so.total.toLocaleString()}</td>
+            <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-semibold ${so.status === 'Invoiced' ? 'bg-emerald-100 text-emerald-800' : (so.status === 'Delivered' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800')}">${so.status}</span></td>
+            <td class="p-3 text-right space-x-1">
+              ${so.deliveryId ? `<button onclick="printDeliveryChallan('${so.id}')" class="text-xs bg-amber-50 text-amber-700 px-2 py-1 rounded border border-amber-300 font-medium">Challan</button>` : ''}
+              ${so.invoiceId ? `<button onclick="printBillingInvoice('${so.id}')" class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded border border-blue-300 font-medium">Invoice</button>` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
 
-      document.getElementById('ap-ledger-body').innerHTML = completedPOs.map(po => `
-        <tr class="border-b"><td class="p-2.5 font-mono">${po.id}</td><td class="p-2.5">${po.supCode}</td><td class="p-2.5 text-right font-mono">৳ ${po.total.toLocaleString()}</td><td class="p-2.5 text-right font-mono text-emerald-600">৳ ${(po.paid || 0).toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold text-rose-600">৳ ${(po.total - (po.paid || 0)).toLocaleString()}</td></tr>
-      `).join('');
+      // Enriched PO Report
+      document.getElementById('po-report-table-body').innerHTML = window.purchaseOrders.map(po => {
+        const sup = window.suppliers.find(s => s.code === po.supCode);
+        return `
+          <tr class="border-b">
+            <td class="p-3 font-mono font-bold">${po.id}</td>
+            <td class="p-3 font-semibold text-slate-900">${sup ? sup.name : po.supCode}</td>
+            <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-semibold ${po.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}">${po.status}</span></td>
+            <td class="p-3 font-semibold font-mono">৳ ${po.total.toLocaleString()}</td>
+            <td class="p-3 text-right">
+              <button onclick="printPurchaseOrder('${po.id}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border font-medium">Print PO</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // AR / AP Ledgers
+      document.getElementById('ar-ledger-body').innerHTML = invoicedOrders.map(so => {
+        const cust = window.customers.find(c => c.code === so.custCode);
+        return `<tr class="border-b"><td class="p-2.5 font-mono font-bold">${so.invoiceId}</td><td class="p-2.5 font-semibold">${cust ? cust.name : so.custCode}</td><td class="p-2.5 text-right font-mono">৳ ${so.total.toLocaleString()}</td><td class="p-2.5 text-right font-mono text-emerald-600">৳ ${(so.collected || 0).toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold text-blue-600">৳ ${(so.total - (so.collected || 0)).toLocaleString()}</td></tr>`;
+      }).join('');
+
+      document.getElementById('ap-ledger-body').innerHTML = completedPOs.map(po => {
+        const sup = window.suppliers.find(s => s.code === po.supCode);
+        return `<tr class="border-b"><td class="p-2.5 font-mono font-bold">${po.id}</td><td class="p-2.5 font-semibold">${sup ? sup.name : po.supCode}</td><td class="p-2.5 text-right font-mono">৳ ${po.total.toLocaleString()}</td><td class="p-2.5 text-right font-mono text-emerald-600">৳ ${(po.paid || 0).toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold text-rose-600">৳ ${(po.total - (po.paid || 0)).toLocaleString()}</td></tr>`;
+      }).join('');
     };
 
-    // Print Previews
+    // Executive Print Layouts
     window.closePrintModal = function() { document.getElementById('print-modal').classList.add('hidden'); };
+
     window.printDeliveryChallan = function(soId) {
       const so = window.salesOrders.find(s => s.id === soId);
       const cust = window.customers.find(c => c.code === so.custCode);
-      document.getElementById('printable-document').innerHTML = `
-        <h2 class="text-xl font-bold mb-1">UnityCore Trading and Supplies</h2>
-        <p class="text-xs text-slate-500 mb-4">Delivery Challan | Challan No: ${so.deliveryId}</p>
-        <p class="text-xs mb-4"><b>Customer:</b> ${cust ? cust.name : so.custCode} | <b>Address:</b> ${cust ? cust.address : 'N/A'}</p>
-        <table class="w-full text-xs text-left mb-4">
-          <thead class="bg-slate-900 text-white"><tr><th class="p-2">Material</th><th class="p-2">UoM</th><th class="p-2 text-right">Dispatched Qty</th></tr></thead>
-          <tbody>${so.items.map(i => `<tr class="border-b"><td class="p-2">${i.matCode}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right font-bold">${i.qty}</td></tr>`).join('')}</tbody>
+      const doc = document.getElementById('printable-document');
+
+      doc.innerHTML = `
+        <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-start">
+          <div>
+            <h1 class="text-2xl font-black text-slate-900 uppercase">UnityCore Trading and Supplies</h1>
+            <p class="text-xs text-slate-500">Logistics &amp; Warehouse Dispatch Center | Dhaka, Bangladesh</p>
+            <p class="text-xs text-slate-500">BIN: 002938491-0101 | Phone: +880 2-9876543</p>
+          </div>
+          <div class="text-right">
+            <span class="inline-block px-3 py-1 bg-amber-600 text-white text-xs font-bold uppercase rounded">Delivery Challan</span>
+            <div class="mt-2 text-sm font-mono font-bold">${so.deliveryId}</div>
+            <div class="text-xs text-slate-500">Dispatch Date: ${so.deliveryDate}</div>
+            <div class="text-xs text-slate-500">Ref SO No: #${so.id}</div>
+          </div>
+        </div>
+        <div class="mb-6 p-4 bg-slate-50 rounded border text-xs grid grid-cols-2 gap-4">
+          <div>
+            <span class="font-bold text-slate-700 block mb-1 uppercase">Consignee Details:</span>
+            <div class="font-bold text-sm text-slate-900">${cust ? cust.name : so.custCode}</div>
+            <div>${cust ? cust.address : 'N/A'}</div>
+            <div>Phone: ${cust ? cust.phone : 'N/A'} | Email: ${cust ? cust.email : 'N/A'}</div>
+          </div>
+          <div>
+            <span class="font-bold text-slate-700 block mb-1 uppercase">Dispatch Particulars:</span>
+            <div>Transport Mode: Company Covered Van</div>
+            <div>Origin Warehouse: Central Hub Dhaka</div>
+            <div>Terms of Sale: ${cust ? cust.terms : 'Net 30'}</div>
+          </div>
+        </div>
+        <table class="w-full text-xs text-left mb-6">
+          <thead class="bg-slate-900 text-white uppercase">
+            <tr><th class="p-2.5">Line</th><th class="p-2.5">Material Code</th><th class="p-2.5">Material Description</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Dispatched Quantity</th></tr>
+          </thead>
+          <tbody>
+            ${so.items.map((i, idx) => {
+              const m = window.materials.find(x => x.code === i.matCode);
+              return `<tr class="border-b"><td class="p-2.5 font-mono">${idx+1}</td><td class="p-2.5 font-mono font-bold">${i.matCode}</td><td class="p-2.5 font-semibold">${m ? m.desc : ''}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-bold text-sm font-mono">${i.qty}</td></tr>`;
+            }).join('')}
+          </tbody>
         </table>
+        <div class="mt-16 pt-6 border-t border-slate-300 grid grid-cols-3 text-xs text-slate-600 text-center">
+          <div>Prepared By (Store Officer)</div>
+          <div>Dispatched By (Logistics In-Charge)</div>
+          <div>Received By (Customer Seal &amp; Sign)</div>
+        </div>
       `;
       document.getElementById('print-modal').classList.remove('hidden');
     };
@@ -1294,50 +1510,103 @@
     window.printBillingInvoice = function(soId) {
       const so = window.salesOrders.find(s => s.id === soId);
       const cust = window.customers.find(c => c.code === so.custCode);
-      document.getElementById('printable-document').innerHTML = `
-        <h2 class="text-xl font-bold mb-1">UnityCore Trading and Supplies</h2>
-        <p class="text-xs text-slate-500 mb-4">Tax Billing Invoice | Invoice No: ${so.invoiceId}</p>
-        <p class="text-xs mb-4"><b>Bill To:</b> ${cust ? cust.name : so.custCode} | <b>Address:</b> ${cust ? cust.address : 'N/A'}</p>
-        <table class="w-full text-xs text-left mb-4">
-          <thead class="bg-blue-900 text-white"><tr><th class="p-2">Material</th><th class="p-2">UoM</th><th class="p-2 text-right">Qty</th><th class="p-2 text-right">Price</th><th class="p-2 text-right">Total</th></tr></thead>
-          <tbody>${so.items.map(i => `<tr class="border-b"><td class="p-2">${i.matCode}</td><td class="p-2">${i.uom}</td><td class="p-2 text-right">${i.qty}</td><td class="p-2 text-right">৳ ${i.price}</td><td class="p-2 text-right font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`).join('')}</tbody>
+      const doc = document.getElementById('printable-document');
+
+      doc.innerHTML = `
+        <div class="border-b-2 border-blue-900 pb-4 mb-6 flex justify-between items-start">
+          <div>
+            <h1 class="text-2xl font-black text-blue-900 uppercase">UnityCore Trading and Supplies</h1>
+            <p class="text-xs text-slate-500">Corporate Finance &amp; Tax Billing Unit</p>
+            <p class="text-xs text-slate-500">BIN / VAT Reg: 002938491-0101 | Dhaka, Bangladesh</p>
+          </div>
+          <div class="text-right">
+            <span class="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-bold uppercase rounded">Tax Billing Invoice</span>
+            <div class="mt-2 text-sm font-mono font-bold text-slate-900">${so.invoiceId}</div>
+            <div class="text-xs text-slate-500">Invoice Date: ${so.invoiceDate}</div>
+            <div class="text-xs text-slate-500">Challan Ref: ${so.deliveryId}</div>
+          </div>
+        </div>
+        <div class="mb-6 p-4 bg-slate-50 rounded border text-xs grid grid-cols-2 gap-4">
+          <div>
+            <span class="font-bold text-slate-700 block mb-1 uppercase">Bill To Party:</span>
+            <div class="font-bold text-sm text-slate-900">${cust ? cust.name : so.custCode}</div>
+            <div>${cust ? cust.address : 'N/A'}</div>
+            <div>Phone: ${cust ? cust.phone : 'N/A'} | Email: ${cust ? cust.email : 'N/A'}</div>
+          </div>
+          <div>
+            <span class="font-bold text-slate-700 block mb-1 uppercase">Commercial Details:</span>
+            <div>Payment Terms: <b>${cust ? cust.terms : 'Net 30'}</b></div>
+            <div>Currency: <b>Bangladeshi Taka (BDT ৳)</b></div>
+            <div>Order Reference: <b>SO #${so.id}</b></div>
+          </div>
+        </div>
+        <table class="w-full text-xs text-left mb-6">
+          <thead class="bg-blue-900 text-white uppercase">
+            <tr><th class="p-2.5">Line</th><th class="p-2.5">Material Description</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Invoiced Qty</th><th class="p-2.5 text-right">Rate (BDT)</th><th class="p-2.5 text-right">Amount (BDT)</th></tr>
+          </thead>
+          <tbody>
+            ${so.items.map((i, idx) => {
+              const m = window.materials.find(x => x.code === i.matCode);
+              return `<tr class="border-b"><td class="p-2.5 font-mono">${idx+1}</td><td class="p-2.5 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-bold">${i.qty}</td><td class="p-2.5 text-right font-mono">৳ ${i.price.toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold">৳ ${(i.qty * i.price).toLocaleString()}</td></tr>`;
+            }).join('')}
+          </tbody>
         </table>
-        <div class="text-right font-black text-blue-900">Total Payable: ৳ ${so.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+        <div class="flex justify-between items-start pt-2">
+          <div class="text-xs text-slate-500">
+            <p class="font-bold text-slate-700 mb-1">Bank Payment Instructions:</p>
+            <p>A/C Name: UnityCore Trading and Supplies</p>
+            <p>Bank: Standard Chartered Bank Bangladesh | A/C: 01-9283741-01</p>
+          </div>
+          <div class="text-right space-y-1">
+            <div class="text-sm font-bold text-slate-800">Total Invoiced: ৳ ${so.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+            <div class="text-base font-black text-blue-900">Total Payable: ৳ ${so.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+          </div>
+        </div>
+        <div class="mt-16 pt-6 border-t border-slate-300 flex justify-between text-xs text-slate-600">
+          <div>Prepared By: Accounts Department</div>
+          <div>Authorized Signatory &amp; Official Seal</div>
+        </div>
       `;
       document.getElementById('print-modal').classList.remove('hidden');
     };
-  </script>
 
-  <!-- FIREBASE CLOUD ASYNC LOADER -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    window.printPurchaseOrder = function(poId) {
+      const po = window.purchaseOrders.find(p => p.id === poId);
+      const sup = window.suppliers.find(s => s.code === po.supCode);
+      const doc = document.getElementById('printable-document');
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCHsOyzCTMD167n56CnLmjEa6ySHxdV9C0",
-      authDomain: "unitycore-trading.firebaseapp.com",
-      projectId: "unitycore-trading",
-      storageBucket: "unitycore-trading.firebasestorage.app",
-      messagingSenderId: "338268975811",
-      appId: "1:338268975811:web:19b57f5774e5c8d0f02876",
-      measurementId: "G-7GXN84NBPK"
+      doc.innerHTML = `
+        <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-start">
+          <div>
+            <h1 class="text-2xl font-black text-slate-900 uppercase">UnityCore Trading and Supplies</h1>
+            <p class="text-xs text-slate-500">Head Office &amp; Central Procurement | Dhaka, Bangladesh</p>
+          </div>
+          <div class="text-right">
+            <span class="inline-block px-3 py-1 bg-slate-900 text-white text-xs font-bold uppercase rounded">Purchase Order</span>
+            <div class="mt-2 text-sm font-mono font-bold text-slate-900">${po.id}</div>
+            <div class="text-xs text-slate-500">Date: ${po.date}</div>
+          </div>
+        </div>
+        <div class="mb-6 p-4 bg-slate-50 rounded border text-xs">
+          <span class="font-bold text-slate-700 block mb-1 uppercase">Vendor Details:</span>
+          <div class="font-bold text-sm text-slate-900">${sup ? sup.name : po.supCode}</div>
+          <div>Address: ${sup ? sup.address : 'N/A'} | Phone: ${sup ? sup.phone : 'N/A'}</div>
+        </div>
+        <table class="w-full text-xs text-left mb-6">
+          <thead class="bg-slate-900 text-white uppercase">
+            <tr><th class="p-2.5">Material Description</th><th class="p-2.5 text-center">UoM</th><th class="p-2.5 text-right">Order Qty</th><th class="p-2.5 text-right">Cost (BDT)</th><th class="p-2.5 text-right">Net Amount</th></tr>
+          </thead>
+          <tbody>
+            ${po.items.map(i => {
+              const m = window.materials.find(x => x.code === i.matCode);
+              return `<tr class="border-b"><td class="p-2.5 font-semibold">${i.matCode} - ${m ? m.desc : ''}</td><td class="p-2.5 text-center font-bold">${i.uom}</td><td class="p-2.5 text-right font-bold">${i.qty}</td><td class="p-2.5 text-right font-mono">৳ ${i.cost.toLocaleString()}</td><td class="p-2.5 text-right font-mono font-bold">৳ ${(i.qty * i.cost).toLocaleString()}</td></tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+        <div class="text-right text-base font-black text-slate-900">Total Purchase Value: ৳ ${po.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+      `;
+      document.getElementById('print-modal').classList.remove('hidden');
     };
-
-    try {
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-      window.db = db;
-      window.fs = { collection, doc, setDoc, onSnapshot };
-
-      onSnapshot(collection(db, "customers"), (s) => { if (!s.empty) { window.customers = s.docs.map(d => d.data()); window.refreshViews(); } });
-      onSnapshot(collection(db, "suppliers"), (s) => { if (!s.empty) { window.suppliers = s.docs.map(d => d.data()); window.refreshViews(); } });
-      onSnapshot(collection(db, "materials"), (s) => { if (!s.empty) { window.materials = s.docs.map(d => d.data()); window.refreshViews(); } });
-      onSnapshot(collection(db, "salesOrders"), (s) => { if (!s.empty) { window.salesOrders = s.docs.map(d => d.data()); window.refreshViews(); } });
-      onSnapshot(collection(db, "purchaseOrders"), (s) => { if (!s.empty) { window.purchaseOrders = s.docs.map(d => d.data()); window.refreshViews(); } });
-      console.log("Connected to Firebase Firestore");
-    } catch (e) {
-      console.warn("Firestore running in fallback mode:", e);
-    }
   </script>
 </body>
 </html>
